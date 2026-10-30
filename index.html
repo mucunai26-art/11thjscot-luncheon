@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第11回日本臨床作業療法学会 セミナー参加申込</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #263445;
+      margin: 0;
+      padding: 24px 16px;
+    }
+    .container {
+      max-width: 680px;
+      margin: 24px auto;
+      background: white;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 4px 20px #00000012;
+    }
+    h1 { font-size: 23px; line-height: 1.5; }
+    h2 { font-size: 18px; margin-top: 28px; }
+    .subtitle { color: #64748b; }
+    .option, .seminar {
+      border: 1px solid #dbe3ee;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+    .option { cursor: pointer; }
+    .option:hover { background: #f1f5ff; }
+    .option strong { display: block; margin-bottom: 8px; }
+    .option p { color: #64748b; margin: 0; font-size: 14px; }
+    .field { margin: 18px 0; }
+    .field label { display: block; margin-bottom: 7px; font-weight: bold; }
+    input[type="text"], input[type="email"] {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .seminar label { display: block; line-height: 1.6; }
+    .seminar input { margin-right: 8px; }
+    .full { background: #f8fafc; color: #94a3b8; }
+    .remaining { font-size: 13px; color: #64748b; margin-top: 6px; }
+    .notice { color: #64748b; font-size: 14px; }
+    .error { color: #b91c1c; }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .back { background: #e2e8f0; }
+    .hidden { display: none; }
+
+    /* スマートフォン対応 */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { overflow-wrap: anywhere; }
+    .privacy-notice {
+      background: #f8fafc;
+      border: 1px solid #dbe3ee;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 20px 0 26px;
+      line-height: 1.75;
+    }
+    .privacy-notice h3 { margin: 0 0 8px; font-size: 16px; }
+    .privacy-notice p { margin: 8px 0; }
+    .seminar { transition: background-color .15s, border-color .15s; }
+    .seminar:has(input:checked) { border-color: #2563eb; background: #eff6ff; }
+    .seminar:has(input:disabled) { opacity: .7; }
+    .seminar input[type="radio"] { accent-color: #2563eb; width: 19px; height: 19px; vertical-align: middle; }
+    .seminar label { cursor: pointer; font-weight: 600; }
+    button:focus-visible, input:focus-visible, .option:focus-visible { outline: 3px solid #60a5fa; outline-offset: 2px; }
+    #message, #manageMessage, #changeMessage {
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+    #message { white-space: pre-line; }
+    @media (max-width: 600px) {
+      body { padding: 10px 10px 28px; font-size: 16px; line-height: 1.65; }
+      .container { max-width: 100%; margin: 8px auto; padding: 20px 16px 26px; border-radius: 12px; }
+      h1 { font-size: 21px; line-height: 1.45; margin: 0 0 8px; }
+      h2 { font-size: 18px; line-height: 1.5; margin: 26px 0 12px; }
+      h3 { font-size: 17px; }
+      .subtitle { font-size: 15px; margin: 0 0 18px; }
+      .option { padding: 18px 15px; margin: 12px 0; min-height: 86px; }
+      .option strong { font-size: 18px; line-height: 1.5; }
+      .option p { font-size: 15px; line-height: 1.6; }
+      .field { margin: 18px 0; }
+      .field label { font-size: 16px; }
+      input[type="text"], input[type="email"] { min-height: 50px; padding: 12px 13px; font-size: 16px; }
+      .notice { font-size: 14px; line-height: 1.7; }
+      .privacy-notice { padding: 14px; font-size: 14px; line-height: 1.7; }
+      .privacy-notice h3 { font-size: 16px; }
+      .seminar { padding: 16px 14px; margin: 10px 0; }
+      .seminar label { font-size: 16px; line-height: 1.65; }
+      .seminar input[type="radio"] { width: 21px; height: 21px; margin-right: 10px; }
+      .seminar > div:not(.remaining) { font-size: 15px !important; line-height: 1.65; }
+      .seminar > div:not(.remaining):first-of-type { font-size: 16px !important; }
+      .remaining { font-size: 14px; margin-top: 8px; }
+      button { min-height: 48px; padding: 12px 15px; font-size: 16px; margin: 5px 5px 5px 0; }
+      #submitButton { display: block; width: 100%; margin: 12px 0; background: #1d4ed8; color: white; font-weight: bold; }
+      #submitButton:disabled { opacity: .65; }
+      #manageActions, #changeSeminarList, #seminarList { min-width: 0; }
+    }
+  
+#manageToken {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+</style>
+</head>
+<body>
+  <main class="container">
+    <h1>第11回日本臨床作業療法学会</h1>
+    <p class="subtitle">セミナー参加申込・変更・キャンセル</p>
+
+    <div id="menu">
+      <div class="option" onclick="showNewForm()">
+        <strong>① 新しく申し込む</strong>
+        <p>空席のあるセミナーからお申し込みいただけます。</p>
+      </div>
+      <div class="option" onclick="showManageForm('change')">
+        <strong>② 申込内容を変更する</strong>
+        <p>申込済みの内容を確認・変更できます。</p>
+      </div>
+      <div class="option" onclick="showManageForm('cancel')">
+        <strong>③ 申込をキャンセルする</strong>
+        <p>申込済みのセミナーをキャンセルできます。</p>
+      </div>
+    </div>
+<section id="manageForm" class="hidden">
+  <h2 id="manageTitle">申込内容の確認</h2>
+
+  <p>申込完了時に発行された申込IDと確認コードを入力してください。</p>
+
+  <div class="field">
+    <label for="manageId">申込ID（必須）</label>
+    <input type="text" id="manageId">
+  </div>
+
+  <div class="field">
+    <label for="manageToken">確認コード（必須）</label>
+    <input type="password" id="manageToken" autocomplete="off">
+  </div>
+
+  <p id="manageMessage" role="status"></p>
+
+  <button type="button" onclick="lookupApplication()">
+    申込内容を確認する
+  </button>
+
+  <button class="back" type="button" onclick="goBack()">
+    戻る
+  </button>
+   
+<div id="manageActions" class="hidden">
+  <h3>現在の申込内容</h3>
+  <p id="applicationDetails"></p>
+
+  <div id="changeActions" class="hidden">
+    <h3>変更するセミナーを選択</h3>
+    <p class="notice">
+      現在の申込内容が選択されています。
+      変更したいセミナーだけ選び直してください。
+    </p>
+
+    <div id="changeSeminarList"></div>
+
+    <p id="changeMessage" role="status"></p>
+
+    <button type="button" id="changeConfirmButton"
+            onclick="confirmApplicationChange()">
+      変更内容を確認する
+    </button>
+  </div>
+
+  <div id="cancelActions" class="hidden">
+    <button type="button" onclick="confirmCancellation()">
+      申込をキャンセルする
+    </button>
+  </div>
+</div>
+</section>
+
+<section id="newForm" class="hidden">
+  
+      <h2>新規参加申込</h2>
+
+      <div class="field">
+        <label for="name">氏名（必須）</label>
+        <input type="text" id="name" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="affiliation">所属先（必須）</label>
+        <input type="text" id="affiliation" required>
+      </div>
+
+      <div class="field">
+        <label for="email">メールアドレス（必須）</label>
+        <input type="email" id="email" autocomplete="email" required>
+      </div>
+
+<div class="field">
+  <label for="profession">職種（必須）</label>
+  <select id="profession" required
+          style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:white;">
+    <option value="">選択してください</option>
+    <option value="作業療法士">作業療法士</option>
+    <option value="理学療法士">理学療法士</option>
+    <option value="言語聴覚士">言語聴覚士</option>
+    <option value="その他">その他</option>
+  </select>
+</div>
+
+      <p class="notice">各時間帯につき、1つのセミナーを選択できます。</p>
+<div class="privacy-notice">
+  <h3>セミナー参加について</h3>
+  <p>
+    各セミナーは、学会参加費をお支払いいただいている方であれば、
+    追加料金なしでご参加いただけます。
+  </p>
+  <p>
+    なお、ランチョン・ブランチセミナーでは昼食を、
+    スイーツセミナーでは甘味をご用意しております。
+  </p>
+</div>
+<div class="privacy-notice">
+  <h3>個人情報の取り扱いについて</h3>
+  <p>
+    本フォームで取得した個人情報は、第11回日本臨床作業療法学会におけるセミナーの参加受付、申込状況・定員の管理、参加者への連絡およびセミナー運営のために利用します。
+  </p>
+  <p>
+    取得する情報（氏名、所属施設・機関名、メールアドレス、職種、各セミナーの申込内容等）は、参加を申し込まれたセミナーの共催・協賛企業に提供します。
+  </p>
+</div>
+
+      <div id="seminarList">
+        <p>セミナー情報を読み込んでいます…</p>
+      </div>
+
+      <p id="message" role="status"></p>
+
+      <button class="back" type="button" onclick="goBack()">
+        戻る
+      </button>
+
+      <button type="button" id="submitButton" onclick="submitApplication()">
+  この内容で申し込む
+</button>
+    </section>
+  </main>
+
+  <script>
+    const groups = [
+      {
+        title: '12月19日（土）11:40〜12:30｜ランチョンセミナー',
+        start: 0,
+        end: 3
+      },
+      {
+        title: '12月19日（土）16:40〜17:30｜スイーツセミナー',
+        start: 3,
+        end: 4
+      },
+      {
+        title: '12月20日（日）10:50〜11:40｜ブランチセミナー',
+        start: 4,
+        end: 7
+      }
+    ];
+
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxEv6F6PYKQ1Z52ohnMLxNw9jfpH-u9ZVRuZH3ObTZeSIYZEWuRvzndxdNQ8PyAvc8W/exec';
+    let requestInProgress = false;
+    async function api(action, fields = {}) {
+      const params = new URLSearchParams();
+      params.set('action', action);
+      Object.entries(fields).forEach(([key, value]) => {
+        params.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
+      });
+      const response = await fetch(API_URL, { method: 'POST', body: params, redirect: 'follow' });
+      if (!response.ok) throw new Error('通信エラー（HTTP ' + response.status + '）');
+      let result;
+      try { result = await response.json(); }
+      catch (_) { throw new Error('サーバーの応答を読み取れませんでした。'); }
+      if (!result || result.success !== true) throw new Error(result?.message || '処理に失敗しました。');
+      return result;
+    }
+    async function showNewForm() {
+      document.getElementById('menu').classList.add('hidden');
+      document.getElementById('newForm').classList.remove('hidden');
+      const message = document.getElementById('message');
+      message.textContent = '';
+      message.className = '';
+      document.getElementById('seminarList').textContent = 'セミナー情報を読み込んでいます…';
+      try {
+        const result = await api('availability');
+        renderSeminars(result.seminars);
+      } catch (error) {
+        document.getElementById('seminarList').textContent = '';
+        message.textContent = '読み込みに失敗しました：' + error.message;
+        message.className = 'error';
+      }
+    }
+
+const seminarDetails = {
+  'ランチョン①': {
+    title: 'Brain-Machine Interfaceは作業療法に何をもたらすか',
+    subtitle: '―重度上肢麻痺への介入とポータブルBCIによる在宅展開―',
+    speaker: '庵本 直矢',
+    venue: '講堂・第1会場',
+    sponsor: '株式会社LIFESCAPES'
+  },
+  'ランチョン②': {
+    title: '生活を見据えたリハビリテーションのゴール設定',
+    subtitle: '――「もっとがんばれ」と言う前に、私たちが発見すべきもの',
+    speaker: '張本 浩平',
+    venue: '階段教室402教室・第2会場',
+    sponsor: '株式会社gene'
+  },
+  'ランチョン③': {
+    title: '医療・介護などの地域資源と連携した自費リハビリの実践',
+    subtitle: '―地域における自費リハビリの役割―',
+    speaker: '原田 彩夏',
+    venue: '中教室304教室・第3会場',
+    sponsor: '帝人株式会社'
+  },
+  'スイーツ①': {
+    title: '麻痺手の生活場面での使用につなげるリハビリテーション',
+    subtitle: '―病態理解と手指リハビリテーションロボットの臨床活用―',
+    speaker: '夏山 真一・堀 翔平',
+    venue: '中教室304教室・第3会場',
+    sponsor: '株式会社SANMATSU'
+  },
+  'ブランチ①': {
+    title: '理論は臨床の何を変えるのか？',
+    subtitle: '',
+    speaker: '斎藤 祐樹',
+    venue: '講堂・第1会場',
+    sponsor: 'リハテックリンクス'
+  },
+  'ブランチ②': {
+    title: '生活・職業関連動作の再獲得に向けた手指リハビリテーションロボットの活用',
+    subtitle: '',
+    speaker: '宇佐美 こずえ・山本 大稀・道願 正歩',
+    venue: '階段教室402教室・第2会場',
+    sponsor: 'FrontAct株式会社'
+  },
+  'ブランチ③': {
+    title: '会話AIロボットRomiとRomiCore SDKが拓く、生活場面における作業参加支援の可能性',
+    subtitle: '',
+    speaker: '長岡 輝',
+    venue: '中教室304教室・第3会場',
+    sponsor: '株式会社MIXI'
+  }
+};
+
+
+    function renderSeminars(seminars) {
+      const list = document.getElementById('seminarList');
+      list.replaceChildren();
+
+      groups.forEach(function(group, groupIndex) {
+        const heading = document.createElement('h2');
+        heading.textContent = group.title;
+        list.appendChild(heading);
+
+        seminars.slice(group.start, group.end).forEach(function(seminar) {
+          const card = document.createElement('div');
+          card.className = 'seminar' + (seminar.available ? '' : ' full');
+
+          const label = document.createElement('label');
+          const radio = document.createElement('input');
+          radio.type = 'radio';
+          radio.name = 'seminar' + groupIndex;
+          radio.value = seminar.name;
+          radio.disabled = !seminar.available;
+
+         
+label.appendChild(radio);
+label.appendChild(document.createTextNode(seminar.name));
+card.appendChild(label);
+
+const info = seminarDetails[seminar.name];
+
+if (info) {
+  const title = document.createElement('div');
+  title.style.fontWeight = 'bold';
+  title.style.marginTop = '8px';
+  title.textContent = info.title;
+  card.appendChild(title);
+
+  if (info.subtitle) {
+    const subtitle = document.createElement('div');
+    subtitle.style.fontSize = '13px';
+    subtitle.style.marginTop = '4px';
+    subtitle.textContent = info.subtitle;
+    card.appendChild(subtitle);
+  }
+
+  const speaker = document.createElement('div');
+  speaker.style.fontSize = '13px';
+  speaker.style.marginTop = '8px';
+  speaker.textContent = '講師：' + info.speaker;
+  card.appendChild(speaker);
+
+  const venue = document.createElement('div');
+  venue.style.fontSize = '13px';
+  venue.style.marginTop = '4px';
+  venue.textContent = '会場：' + info.venue;
+  card.appendChild(venue);
+    const sponsor = document.createElement('div');
+  sponsor.style.fontSize = '13px';
+  sponsor.style.marginTop = '4px';
+  sponsor.style.fontWeight = 'bold';
+  sponsor.textContent = '協賛企業：' + info.sponsor;
+  card.appendChild(sponsor);
+}
+
+
+          const detail = document.createElement('div');
+          detail.className = 'remaining';
+          detail.textContent = seminar.available
+            ? '残席 ' + seminar.remaining + '名'
+            : '満席（受付終了）';
+          card.appendChild(detail);
+
+          list.appendChild(card);
+        });
+
+        const noneCard = document.createElement('div');
+        noneCard.className = 'seminar';
+        const noneLabel = document.createElement('label');
+        const noneRadio = document.createElement('input');
+        noneRadio.type = 'radio';
+        noneRadio.name = 'seminar' + groupIndex;
+        noneRadio.value = '';
+        noneRadio.checked = true;
+        noneLabel.appendChild(noneRadio);
+        noneLabel.appendChild(
+          document.createTextNode('参加しない')
+        );
+        noneCard.appendChild(noneLabel);
+        list.appendChild(noneCard);
+      });
+    }
+
+    function goBack() {
+  document.getElementById('newForm').classList.add('hidden');
+  document.getElementById('manageForm').classList.add('hidden');
+  document.getElementById('menu').classList.remove('hidden');
+}
+    async function submitApplication() {
+      if (requestInProgress) return;
+      const message = document.getElementById('message');
+      const button = document.getElementById('submitButton');
+      const name = document.getElementById('name').value.trim();
+      const affiliation = document.getElementById('affiliation').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const profession = document.getElementById('profession').value;
+      if (!name || !affiliation || !email || !profession) {
+        message.textContent = '氏名・所属先・メールアドレス・職種をすべて入力してください。'; return;
+      }
+      if (!document.getElementById('email').checkValidity()) {
+        message.textContent = '正しいメールアドレスを入力してください。'; return;
+      }
+      const selected = index => {
+        const radio = document.querySelector('input[name="seminar' + index + '"]:checked');
+        return radio && radio.value ? radio.value : '参加しない';
+      };
+      const data = { name, affiliation, email, profession, lunch: selected(0), sweets: selected(1), brunch: selected(2) };
+      if (data.lunch === '参加しない' && data.sweets === '参加しない' && data.brunch === '参加しない') {
+        message.textContent = '参加するセミナーを1つ以上選択してください。'; return;
+      }
+      if (!confirm('この内容で申込を確定しますか？')) return;
+      requestInProgress = true;
+      button.disabled = true;
+      message.textContent = '申込内容を送信しています…';
+      try {
+        const result = await api('submit', { data });
+        message.textContent = (result.message || '申込が完了しました。') +
+          '\n\n【申込ID】\n' + result.applicationId +
+          '\n\n【確認コード】\n' + result.editToken +
+          '\n\n変更・キャンセル時に必要です。必ず控えてください。' +
+          '\n\n確認メールは順次送信されます。届かない場合は迷惑メールフォルダをご確認ください。';
+        button.textContent = '申込完了';
+      } catch (error) {
+        message.textContent = '処理結果を確認できませんでした：' + error.message +
+          '\n通信が中断された場合でも登録済みの可能性があります。再送信前にメールや管理者へ確認してください。';
+        button.disabled = false;
+      } finally { requestInProgress = false; }
+    }
+let manageMode = '';
+
+function showManageForm(mode) {
+  manageMode = mode;
+
+  document.getElementById('menu').classList.add('hidden');
+  document.getElementById('newForm').classList.add('hidden');
+  document.getElementById('manageForm').classList.remove('hidden');
+
+  document.getElementById('manageTitle').textContent =
+    mode === 'change' ? '申込内容を変更する' : '申込をキャンセルする';
+
+  document.getElementById('manageId').value = '';
+  document.getElementById('manageToken').value = '';
+  document.getElementById('manageMessage').textContent = '';
+  document.getElementById('manageActions').classList.add('hidden');
+document.getElementById('changeSeminarList').replaceChildren();
+document.getElementById('changeMessage').textContent = '';
+}
+    
+
+ async function lookupApplication() {
+   const id = document.getElementById('manageId').value.trim();
+   const token = document.getElementById('manageToken').value.trim();
+   const message = document.getElementById('manageMessage');
+   if (!id || !token) { message.textContent = '申込IDと確認コードを入力してください。'; return; }
+   document.getElementById('manageActions').classList.add('hidden');
+   message.textContent = '申込内容を確認しています…';
+   try {
+     const response = await api('lookup', { applicationId: id, editToken: token });
+     const result = response.application;
+     message.textContent = '申込情報を取得しました。';
+     document.getElementById('manageActions').classList.remove('hidden');
+     document.getElementById('applicationDetails').textContent =
+       '氏名：' + result.name + '\n所属：' + result.affiliation +
+       '\nメール：' + result.email + '\n申込状態：' + result.status +
+       '\nランチョン：' + (result.lunch || '参加しない') +
+       '\nスイーツ：' + (result.sweets || '参加しない') +
+       '\nブランチ：' + (result.brunch || '参加しない');
+     document.getElementById('applicationDetails').style.whiteSpace = 'pre-line';
+     document.getElementById('changeActions').classList.toggle('hidden', manageMode !== 'change' || result.status !== '申込確定');
+     document.getElementById('cancelActions').classList.toggle('hidden', manageMode !== 'cancel' || result.status !== '申込確定');
+     if (manageMode === 'change' && result.status === '申込確定') await showChangeOptions(result);
+   } catch (error) { message.textContent = '確認できませんでした：' + error.message; }
+ }
+
+async function showChangeOptions(application) {
+  const list = document.getElementById('changeSeminarList');
+  list.replaceChildren();
+  const current = [application.lunch || '参加しない', application.sweets || '参加しない', application.brunch || '参加しない'];
+  const message = document.getElementById('changeMessage');
+  message.textContent = 'セミナー情報を読み込んでいます…';
+  try {
+    const response = await api('availability');
+    const seminars = response.seminars;
+list.replaceChildren();
+
+      groups.forEach(function(group, groupIndex) {
+        const heading = document.createElement('h2');
+        heading.textContent = group.title;
+        list.appendChild(heading);
+
+        seminars.slice(group.start, group.end).forEach(function(seminar) {
+          const isCurrent = seminar.name === current[groupIndex];
+
+          const card = document.createElement('div');
+          card.className = 'seminar';
+
+          const label = document.createElement('label');
+          const radio = document.createElement('input');
+
+          radio.type = 'radio';
+          radio.name = 'changeSeminar' + groupIndex;
+          radio.value = seminar.name;
+          radio.checked = isCurrent;
+          radio.disabled = !seminar.available && !isCurrent;
+
+          label.appendChild(radio);
+          label.appendChild(document.createTextNode(
+            seminar.name + (isCurrent ? '（現在の申込）' : '')
+          ));
+
+          card.appendChild(label);
+
+          const detail = document.createElement('div');
+          detail.className = 'remaining';
+          detail.textContent = isCurrent
+            ? '現在申し込んでいるセミナー'
+            : seminar.available
+              ? '残席 ' + seminar.remaining + '名'
+              : '満席（選択不可）';
+
+          card.appendChild(detail);
+          list.appendChild(card);
+        });
+
+        const noneCard = document.createElement('div');
+        noneCard.className = 'seminar';
+
+        const noneLabel = document.createElement('label');
+        const noneRadio = document.createElement('input');
+
+        noneRadio.type = 'radio';
+        noneRadio.name = 'changeSeminar' + groupIndex;
+        noneRadio.value = '参加しない';
+        noneRadio.checked = current[groupIndex] === '参加しない';
+
+        noneLabel.appendChild(noneRadio);
+        noneLabel.appendChild(
+          document.createTextNode('参加しない')
+        );
+
+        noneCard.appendChild(noneLabel);
+        list.appendChild(noneCard);
+      });
+
+      message.textContent = '';
+  } catch (error) { message.textContent = 'セミナー情報を取得できませんでした：' + error.message; }
+}
+
+async function confirmApplicationChange() {
+  if (requestInProgress) return;
+  const keys = ['lunch', 'sweets', 'brunch'];
+  const labels = ['ランチョン', 'スイーツ', 'ブランチ'];
+  const changes = {};
+  const message = document.getElementById('changeMessage');
+  const button = document.getElementById('changeConfirmButton');
+  for (let i = 0; i < keys.length; i++) {
+    const selected = document.querySelector('input[name="changeSeminar' + i + '"]:checked');
+    if (!selected) { message.textContent = 'セミナー情報を読み込み中です。'; return; }
+    changes[keys[i]] = selected.value;
+  }
+  const summary = labels.map((label, i) => label + '：' + changes[keys[i]]).join('\n');
+  if (!confirm('以下の内容に変更しますか？\n\n' + summary)) return;
+  const applicationId = document.getElementById('manageId').value.trim();
+  const editToken = document.getElementById('manageToken').value.trim();
+  requestInProgress = true; button.disabled = true;
+  message.textContent = '変更内容を保存しています…';
+  try {
+    const result = await api('change', { applicationId, editToken, data: changes });
+    message.textContent = (result.message || '変更が完了しました。') +
+      '\n確認メールは順次送信されます。';
+    document.getElementById('manageMessage').textContent = '変更が完了しました。\n' + summary;
+    document.getElementById('applicationDetails').textContent += '\n【変更後】\n' + summary;
+    document.getElementById('changeActions').classList.add('hidden');
+  } catch (error) {
+    message.textContent = '変更結果を確認できませんでした：' + error.message +
+      '\n通信が中断された場合は再送信せず、申込内容を再確認してください。';
+    button.disabled = false;
+  } finally { requestInProgress = false; }
+}
+
+async function confirmCancellation() {
+  if (requestInProgress) return;
+  const applicationId = document.getElementById('manageId').value.trim();
+  const editToken = document.getElementById('manageToken').value.trim();
+  const message = document.getElementById('manageMessage');
+  if (!applicationId || !editToken) { message.textContent = '申込IDと確認コードを入力してください。'; return; }
+  if (!confirm('この申込をキャンセルしますか？\nキャンセル後は元に戻せません。')) return;
+  requestInProgress = true;
+  message.textContent = 'キャンセル処理を実行しています…';
+  try {
+    const result = await api('cancel', { applicationId, editToken });
+    message.textContent = (result.message || '申込をキャンセルしました。') +
+      '\n確認メールは順次送信されます。';
+    document.getElementById('manageActions').classList.add('hidden');
+  } catch (error) {
+    message.textContent = 'キャンセル結果を確認できませんでした：' + error.message +
+      '\n通信が中断された場合は再送信せず、申込内容を再確認してください。';
+  } finally { requestInProgress = false; }
+}
+
+  </script>
+</body>
+</html>
+
+
