@@ -8,6 +8,7 @@
 <h1>第11回日本臨床作業療法学会</h1><p class="subtitle">プレセミナー 参加申込</p>
 <div id="statusNotice" class="notice preview" role="status">受付状況を確認しています…</div>
 <div class="notice"><p>すべてWeb開催です。参加希望のプレセミナーを選択してください（複数選択可）。</p><p>定員はありません。申込締切は各セミナーの開始時刻です。視聴URLは申込後の確認メールで順次ご案内します。</p><p>追加申込の場合は、まだ申し込んでいない企画だけを選択してください。</p><p>プレ大会長講演は申込不要です。視聴URLは学会参加登録者の皆様へ別途ご案内します。</p></div>
+<button id="openManageButton" type="button" aria-controls="manageApplication" aria-expanded="false">申込内容の確認・キャンセルはこちら</button>
 <form id="applicationForm"><fieldset id="formFields">
 <h2>参加者情報</h2>
 <div class="field"><label for="name">氏名（必須）</label><input id="name" type="text" maxlength="100" autocomplete="name" required></div>
@@ -20,8 +21,21 @@
 <div class="notice"><strong>個人情報の取り扱いについて</strong><p>本フォームで取得した個人情報は、第11回日本臨床作業療法学会におけるプレセミナーの参加受付、申込状況の管理、参加者への連絡およびセミナー運営のために利用します。</p><p>取得する情報（氏名、所属施設・機関名、メールアドレス、職種、各セミナーの申込内容等）は、参加を申し込まれたセミナーの共催・協賛企業に提供します。</p></div>
 <label class="agreement"><input id="consent" type="checkbox" required>個人情報の取り扱いに同意します。</label>
 </fieldset><p id="message" class="result" role="status" tabindex="-1"></p><button id="submitButton" type="submit" disabled>受付状況を確認中</button></form>
-<details><summary>申込内容の確認・キャンセル</summary><p>確認メールに記載された申込IDと確認コードを入力してください。この申込IDに含まれる全企画をキャンセルできます。企画を変更する場合は、開始時刻前に対象の申込をキャンセルして、改めてお申し込みください。</p><div class="field"><label for="manageId">申込ID</label><input id="manageId" type="text" maxlength="80"></div><div class="field"><label for="manageToken">確認コード</label><input id="manageToken" type="text" maxlength="80" autocomplete="off"></div><button id="lookupButton" type="button">申込内容を確認する</button><p id="manageMessage" class="result" role="status"></p><button id="cancelButton" class="hidden" type="button">この申込全体をキャンセルする</button></details>
+<details id="manageApplication"><summary>申込内容の確認・キャンセル</summary><p>確認メールに記載された申込IDと確認コードだけでお手続きできます。上の参加者情報の入力は不要です。この申込IDに含まれる全企画をキャンセルできます。企画を変更する場合は、開始時刻前に対象の申込をキャンセルして、改めてお申し込みください。</p><div class="field"><label for="manageId">申込ID</label><input id="manageId" type="text" maxlength="80"></div><div class="field"><label for="manageToken">確認コード</label><input id="manageToken" type="text" maxlength="80" autocomplete="off"></div><button id="lookupButton" type="button">申込内容を確認する</button><p id="manageMessage" class="result" role="status"></p><button id="cancelButton" class="hidden" type="button">この申込全体をキャンセルする</button></details>
 </main><script>
+  const manageSection = document.getElementById('manageApplication');
+  const openManageButton = document.getElementById('openManageButton');
+
+  openManageButton.addEventListener('click', function () {
+    manageSection.open = true;
+    document.getElementById('manageId').focus({ preventScroll: true });
+    manageSection.scrollIntoView({ block: 'start' });
+  });
+
+  manageSection.addEventListener('toggle', function () {
+    openManageButton.setAttribute('aria-expanded', String(manageSection.open));
+  });
+
   const API_URL = 'https://script.google.com/macros/s/AKfycbwj1cYByHMDwZKPztq04k54AismqVRoeHbA8LoMlitkcbFvSPlw6PSpQpt3Bks_y3Mb2g/exec';
 
   async function requestPreSeminar(action, fields) {
