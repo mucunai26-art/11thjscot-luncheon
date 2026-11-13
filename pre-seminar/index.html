@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head><base target="_top"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>COT プレセミナー参加申込</title>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:24px 14px;background:#f4f6fb;color:#263445;font-family:Arial,'Noto Sans JP',sans-serif;line-height:1.75;overflow-wrap:anywhere}main{max-width:760px;margin:auto;padding:30px;background:white;border-radius:14px;box-shadow:0 4px 20px #00000010}h1{font-size:23px;margin:0}h2{font-size:19px;margin-top:28px}.subtitle,.detail{color:#64748b}.detail{font-size:14px}.notice{padding:16px;margin:18px 0;background:#eff6ff;border-radius:9px}.preview{background:#fff7e6}.field{margin:18px 0}.field label{display:block;font-weight:bold}input[type=text],input[type=email],select{width:100%;margin-top:6px;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:white}.card{display:block;margin:14px 0;padding:18px;border:1px solid #dbe3ee;border-radius:10px;cursor:pointer}.card:has(input:checked){background:#eff6ff;border-color:#2563eb}.card:has(input:disabled){background:#f8fafc;color:#64748b;cursor:default}input[type=checkbox]{width:20px;height:20px;margin-right:8px;accent-color:#2563eb;vertical-align:middle}.event-name{font-weight:bold;color:#243b64}.event-title{font-weight:bold;margin:10px 0}.agreement{display:block;margin:16px 0}.error{color:#b91c1c}.result{white-space:pre-wrap}button{padding:14px;border:0;border-radius:8px;font-size:16px;background:#243b64;color:white;cursor:pointer;min-height:48px}#submitButton{width:100%}button:disabled{background:#94a3b8;cursor:default}fieldset{border:0;padding:0;margin:0;min-width:0}details{margin-top:28px;border-top:1px solid #dbe3ee;padding-top:18px}summary{cursor:pointer;font-weight:bold}.hidden{display:none}:focus-visible{outline:3px solid #60a5fa;outline-offset:3px}input[aria-invalid=true]{border-color:#b91c1c}@media(max-width:600px){body{padding:12px 10px}main{padding:22px 16px}h1{font-size:21px}}
+</style></head>
+<body><main>
+<h1>第11回日本臨床作業療法学会</h1><p class="subtitle">プレセミナー 参加申込</p>
+<div id="statusNotice" class="notice preview" role="status">受付状況を確認しています…</div>
+<div class="notice"><p>すべてWeb開催です。参加希望のプレセミナーを選択してください（複数選択可）。</p><p>定員はありません。申込締切は各セミナーの開始時刻です。視聴URLは申込後の確認メールで順次ご案内します。</p><p>追加申込の場合は、まだ申し込んでいない企画だけを選択してください。</p><p>プレ大会長講演は申込不要です。視聴URLは学会参加登録者の皆様へ別途ご案内します。</p></div>
+<form id="applicationForm"><fieldset id="formFields">
+<h2>参加者情報</h2>
+<div class="field"><label for="name">氏名（必須）</label><input id="name" type="text" maxlength="100" autocomplete="name" required></div>
+<div class="field"><label for="affiliation">所属先（必須）</label><input id="affiliation" type="text" maxlength="200" autocomplete="organization" required></div>
+<div class="field"><label for="email">メールアドレス（必須）</label><input id="email" type="email" maxlength="254" autocomplete="email" spellcheck="false" autocapitalize="none" required></div>
+<div class="field"><label for="emailConfirm">メールアドレス（確認用・必須）</label><input id="emailConfirm" type="email" maxlength="254" autocomplete="off" spellcheck="false" autocapitalize="none" aria-describedby="emailHint emailMatchMessage" required><p id="emailHint" class="detail">同じメールアドレスをもう一度入力してください。</p><p id="emailMatchMessage" class="error" aria-live="polite"></p></div>
+<div class="field"><label for="profession">職種（必須）</label><select id="profession" required><option value="">選択してください</option><option>作業療法士</option><option>理学療法士</option><option>言語聴覚士</option><option>その他</option></select></div>
+<h2>参加希望プレセミナー（複数選択可）</h2><div id="events">企画情報を読み込んでいます…</div>
+<label class="agreement"><input id="registered" type="checkbox" required>第11回日本臨床作業療法学会の参加登録済みです。</label>
+<div class="notice"><strong>個人情報の取り扱いについて</strong><p>本フォームで取得した個人情報は、第11回日本臨床作業療法学会におけるプレセミナーの参加受付、申込状況の管理、参加者への連絡およびセミナー運営のために利用します。</p><p>取得する情報（氏名、所属施設・機関名、メールアドレス、職種、各セミナーの申込内容等）は、参加を申し込まれたセミナーの共催・協賛企業に提供します。</p></div>
+<label class="agreement"><input id="consent" type="checkbox" required>個人情報の取り扱いに同意します。</label>
+</fieldset><p id="message" class="result" role="status" tabindex="-1"></p><button id="submitButton" type="submit" disabled>受付状況を確認中</button></form>
+<details><summary>申込内容の確認・キャンセル</summary><p>確認メールに記載された申込IDと確認コードを入力してください。この申込IDに含まれる全企画をキャンセルできます。企画を変更する場合は、開始時刻前に対象の申込をキャンセルして、改めてお申し込みください。</p><div class="field"><label for="manageId">申込ID</label><input id="manageId" type="text" maxlength="80"></div><div class="field"><label for="manageToken">確認コード</label><input id="manageToken" type="text" maxlength="80" autocomplete="off"></div><button id="lookupButton" type="button">申込内容を確認する</button><p id="manageMessage" class="result" role="status"></p><button id="cancelButton" class="hidden" type="button">この申込全体をキャンセルする</button></details>
+</main><script>
+  const API_URL = 'https://script.google.com/macros/s/AKfycbwj1cYByHMDwZKPztq04k54AismqVRoeHbA8LoMlitkcbFvSPlw6PSpQpt3Bks_y3Mb2g/exec';
+
+  async function requestPreSeminar(action, fields) {
+    const params = new URLSearchParams({ action, ...fields });
+    const response = await fetch(API_URL, {
+      method: 'POST', body: params, credentials: 'omit', redirect: 'follow'
+    });
+    if (!response.ok) throw new Error('通信エラー（HTTP ' + response.status + '）');
+    let result;
+    try {
+      result = await response.json();
+    } catch (_) {
+      throw new Error('申込サーバーの応答を確認できませんでした。');
+    }
+    if (!result.success) throw new Error(result.message || '処理に失敗しました。');
+    return result.data;
+  }
+
+  function preExternalRequest() {
+    let success;
+    let failure;
+    function send(action, fields) {
+      requestPreSeminar(action, fields).then(success).catch(failure);
+    }
+    return {
+      withSuccessHandler(handler) { success = handler; return this; },
+      withFailureHandler(handler) { failure = handler; return this; },
+      getPreSeminarPageData() { send('availability', {}); },
+      submitPreSeminarApplication(data) {
+        send('submit', { payload: JSON.stringify(data) });
+      },
+      lookupPreApplication(id, token) { send('lookup', { id, token }); },
+      cancelPreApplication(id, token) { send('cancel', { id, token }); }
+    };
+  }
+
+const $=id=>document.getElementById(id);let page=null,busy=false,completed=false,touched=false,lastPayload='',requestId='',manageCredentials=null;
+function uuid(){if(window.crypto&&crypto.randomUUID)return crypto.randomUUID();const b=new Uint8Array(16);crypto.getRandomValues(b);return Array.from(b,x=>x.toString(16).padStart(2,'0')).join('');}
+function checkEmail(){const bad=$('emailConfirm').value.trim()!==''&&$('email').value.trim()!==$('emailConfirm').value.trim();const text=bad?'メールアドレスが一致していません。':'';$('emailConfirm').setCustomValidity(text);$('emailMatchMessage').textContent=touched?text:'';if(touched&&bad)$('emailConfirm').setAttribute('aria-invalid','true');else $('emailConfirm').removeAttribute('aria-invalid');}
+$('email').addEventListener('input',checkEmail);$('emailConfirm').addEventListener('input',checkEmail);$('emailConfirm').addEventListener('blur',()=>{touched=true;checkEmail();});
+function text(parent,cls,value){const e=document.createElement('div');e.className=cls;e.textContent=value;parent.appendChild(e);}
+function buttonState(){const open=page&&page.registrationEnabled&&page.events.some(e=>e.available);$('submitButton').disabled=!open||busy||completed;$('submitButton').textContent=completed?'申込完了':busy?'送信中…':open?'申込内容を確認する':'現在は受付していません';}
+function render(data){page=data;const open=data.registrationEnabled;$('statusNotice').textContent=open?'参加希望のプレセミナーを選んでお申し込みください。':'現在は申込受付の準備中、または受付停止中です。';$('statusNotice').className=open?'notice':'notice preview';$('events').replaceChildren();data.events.forEach(e=>{const card=document.createElement('label');card.className='card';const title=document.createElement('div');title.className='event-name';const cb=document.createElement('input');cb.type='checkbox';cb.name='events';cb.value=e.id;cb.disabled=!e.available;title.append(cb,document.createTextNode(e.name));card.appendChild(title);text(card,'detail',e.start+'〜'+e.end.slice(-5)+'（日本時間・Web開催）');text(card,'event-title',e.title);text(card,'detail','講師：'+e.speaker+'（'+e.affiliation+'）');if(e.sponsor)text(card,'detail','企業・団体：'+e.sponsor);text(card,'detail','申込締切：'+e.deadline+'｜'+e.status);$('events').appendChild(card);});buttonState();}
+$('applicationForm').addEventListener('submit',ev=>{ev.preventDefault();if(busy||completed||!page||!page.registrationEnabled)return;touched=true;checkEmail();if(!$('applicationForm').reportValidity())return;const ids=Array.from(document.querySelectorAll('input[name=events]:checked:not(:disabled)'),e=>e.value);if(!ids.length){$('message').textContent='参加希望のセミナーを選択してください。';return;}const data={name:$('name').value.trim(),affiliation:$('affiliation').value.trim(),email:$('email').value.trim(),emailConfirm:$('emailConfirm').value.trim(),profession:$('profession').value,registered:$('registered').checked,consent:$('consent').checked,eventIds:ids};const summary=page.events.filter(e=>ids.includes(e.id)).map(e=>e.name+'｜'+e.start).join('\n');if(!confirm('以下の内容で申し込みますか？\n\n氏名：'+data.name+'\nメール：'+data.email+'\n\n'+summary))return;const payload=JSON.stringify(data);if(payload!==lastPayload){requestId=uuid();lastPayload=payload;}data.requestId=requestId;busy=true;$('formFields').disabled=true;buttonState();$('message').className='result';$('message').textContent='送信しています…';preExternalRequest().withSuccessHandler(r=>{busy=false;if(!r||!r.success){$('formFields').disabled=false;buttonState();$('message').textContent='結果を確認できませんでした。';return;}completed=true;buttonState();$('message').textContent='申込が完了しました。\n\n'+summary+'\n\n【申込ID】\n'+r.applicationId+'\n\n【確認コード】\n'+r.confirmationCode+'\n\nこの画面を保存して、必ず控えてください。\n視聴URLを記載した確認メールは順次送信します。\n届かない場合は迷惑メールフォルダもご確認ください。\n申込が集中した場合、送信に時間がかかることがあります。';$('message').focus();}).withFailureHandler(e=>{busy=false;$('formFields').disabled=false;buttonState();$('message').className='result error';$('message').textContent=e.message+'\n\n通信が途切れた場合は同じ内容で再送できます。「申込済み」の場合は確認メールをご確認ください。';}).submitPreSeminarApplication(data);});
+function resetManage(){manageCredentials=null;$('cancelButton').classList.add('hidden');$('manageMessage').textContent='';}['manageId','manageToken'].forEach(id=>$(id).addEventListener('input',resetManage));
+$('lookupButton').addEventListener('click',()=>{const id=$('manageId').value.trim(),token=$('manageToken').value.trim();resetManage();if(!id||!token){$('manageMessage').textContent='申込IDと確認コードを入力してください。';return;}$('lookupButton').disabled=true;preExternalRequest().withSuccessHandler(r=>{$('lookupButton').disabled=false;if(id!==$('manageId').value.trim()||token!==$('manageToken').value.trim())return;manageCredentials={id,token};const names=r.eventIds.map(x=>page?((page.events.find(e=>e.id===x)||{}).name||x):x);$('manageMessage').textContent='氏名：'+r.name+'\n状態：'+r.status+'\n'+names.join('\n');$('cancelButton').classList.toggle('hidden',r.status!=='申込確定');}).withFailureHandler(e=>{$('lookupButton').disabled=false;$('manageMessage').textContent=e.message;}).lookupPreApplication(id,token);});
+$('cancelButton').addEventListener('click',()=>{if(!manageCredentials||!confirm('この申込IDに含まれる全企画をキャンセルしますか？'))return;const c=manageCredentials;$('cancelButton').disabled=true;preExternalRequest().withSuccessHandler(r=>{$('manageMessage').textContent=r.message+'\n確認メールは順次送信されます。';$('cancelButton').classList.add('hidden');$('cancelButton').disabled=false;manageCredentials=null;}).withFailureHandler(e=>{$('manageMessage').textContent=e.message;$('cancelButton').disabled=false;}).cancelPreApplication(c.id,c.token);});
+preExternalRequest().withSuccessHandler(render).withFailureHandler(e=>{$('statusNotice').textContent='情報の読み込みに失敗しました。再読み込みしてください。';$('message').textContent=e.message;$('submitButton').disabled=true;}).getPreSeminarPageData();
+</script></body></html>
