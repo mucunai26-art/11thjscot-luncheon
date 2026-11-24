@@ -3,19 +3,21 @@
 <head>
   <base target="_top">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>COT プレセミナー参加申込</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
       padding: 24px 14px;
       background: #f4f6fb;
       color: #263445;
-      font-family: Arial, 'Noto Sans JP', sans-serif;
+      font-family: Arial, "Noto Sans JP", sans-serif;
       line-height: 1.75;
       overflow-wrap: anywhere;
     }
+
     main {
       max-width: 760px;
       margin: auto;
@@ -24,20 +26,24 @@
       border-radius: 14px;
       box-shadow: 0 4px 20px #00000010;
     }
+
     h1 { font-size: 23px; margin: 0; }
     h2 { font-size: 19px; margin-top: 28px; }
     .subtitle, .detail { color: #64748b; }
     .detail { font-size: 14px; }
+
     .notice {
       padding: 16px;
       margin: 18px 0;
       background: #eff6ff;
       border-radius: 9px;
     }
+
     .preview { background: #fff7e6; }
     .field { margin: 18px 0; }
     .field label { display: block; font-weight: bold; }
-    input[type=text], input[type=email], select {
+
+    input[type="text"], input[type="email"], select {
       width: 100%;
       margin-top: 6px;
       padding: 12px;
@@ -46,6 +52,7 @@
       font-size: 16px;
       background: white;
     }
+
     .card {
       display: block;
       margin: 14px 0;
@@ -54,20 +61,32 @@
       border-radius: 10px;
       cursor: pointer;
     }
-    .card:has(input:checked) { background: #eff6ff; border-color: #2563eb; }
-    .card:has(input:disabled) { background: #f8fafc; color: #64748b; cursor: default; }
-    input[type=checkbox] {
+
+    .card:has(input:checked) {
+      background: #eff6ff;
+      border-color: #2563eb;
+    }
+
+    .card:has(input:disabled) {
+      background: #f8fafc;
+      color: #64748b;
+      cursor: default;
+    }
+
+    input[type="checkbox"] {
       width: 20px;
       height: 20px;
       margin-right: 8px;
       accent-color: #2563eb;
       vertical-align: middle;
     }
+
     .event-name { font-weight: bold; color: #243b64; }
     .event-title { font-weight: bold; margin: 10px 0; }
     .agreement { display: block; margin: 16px 0; }
     .error { color: #b91c1c; }
     .result { white-space: pre-wrap; }
+
     button {
       padding: 14px;
       border: 0;
@@ -78,11 +97,13 @@
       cursor: pointer;
       min-height: 48px;
     }
+
     #submitButton { width: 100%; }
     button:disabled { background: #94a3b8; cursor: default; }
     fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
     :focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
-    input[aria-invalid=true] { border-color: #b91c1c; }
+    input[aria-invalid="true"] { border-color: #b91c1c; }
+
     @media (max-width: 600px) {
       body { padding: 12px 10px; }
       main { padding: 22px 16px; }
@@ -95,8 +116,12 @@
     <h1>第11回日本臨床作業療法学会</h1>
     <p class="subtitle">プレセミナー 参加申込</p>
 
-    <div id="statusNotice" class="notice preview" role="status">受付状況を確認しています…</div>
+    <div id="statusNotice" class="notice preview" role="status">
+      受付状況を確認しています…
+    </div>
+
     <div class="notice">
+      <p>本プレセミナーは、共催・協賛企業のご協力により、無料で参加者の皆様に専門的な知識や最新の情報を提供する機会として開催いたします。</p>
       <p>プレセミナー①〜③は、学会参加登録の有無にかかわらずお申し込みいただけます。</p>
       <p>すべてWeb開催です。参加希望のプレセミナーを選択してください（複数選択可）。</p>
       <p>定員はありません。申込締切は各セミナーの開始時刻です。視聴URLは申込後の確認メールで順次ご案内します。</p>
@@ -120,12 +145,15 @@
 
         <div class="field">
           <label for="email">メールアドレス（必須）</label>
-          <input id="email" type="email" maxlength="254" autocomplete="email" spellcheck="false" autocapitalize="none" required>
+          <input id="email" type="email" maxlength="254" autocomplete="email"
+                 spellcheck="false" autocapitalize="none" required>
         </div>
 
         <div class="field">
           <label for="emailConfirm">メールアドレス（確認用・必須）</label>
-          <input id="emailConfirm" type="email" maxlength="254" autocomplete="off" spellcheck="false" autocapitalize="none" aria-describedby="emailHint emailMatchMessage" required>
+          <input id="emailConfirm" type="email" maxlength="254" autocomplete="off"
+                 spellcheck="false" autocapitalize="none"
+                 aria-describedby="emailHint emailMatchMessage" required>
           <p id="emailHint" class="detail">同じメールアドレスをもう一度入力してください。</p>
           <p id="emailMatchMessage" class="error" aria-live="polite"></p>
         </div>
@@ -146,12 +174,25 @@
 
         <div class="notice">
           <strong>個人情報の取り扱いについて</strong>
+
+          <p>本プレセミナーは、共催・協賛企業のご協力により、参加者の皆様に専門的な知識や最新の情報を提供する機会として開催いたします。</p>
+
           <p>本フォームで取得した個人情報は、第11回日本臨床作業療法学会におけるプレセミナーの参加受付、申込状況の管理、参加者への連絡およびセミナー運営のために利用します。</p>
-          <p>取得する情報（氏名、所属施設・機関名、メールアドレス、職種、各セミナーの申込内容等）は、参加を申し込まれたセミナーの共催・協賛企業に提供します。</p>
+
+          <p>また、取得した情報（氏名、所属施設・機関名、メールアドレス、職種、各セミナーの申込内容等）は、参加を申し込まれたセミナーの共催・協賛企業に提供します。</p>
+
+          <p>提供先の企業は、セミナーに関する資料や関連情報の提供、医療・リハビリテーション等に関する製品・サービスの紹介（広告・宣伝を含む）、関連するセミナー・イベントの案内など、参加者の専門的な活動や知識の向上に資する情報を電子メールにて提供するために、当該個人情報を利用します。</p>
+
+          <p>提供された個人情報は、関係法令および各企業のプライバシーポリシーに基づき適切に管理されます。また、企業からの情報配信は、参加登録後もいつでも停止することができます。</p>
+
+          <p>本プレセミナーへの参加・視聴にあたっては、上記の個人情報の取り扱い、共催・協賛企業への個人情報の提供および当該企業からの電子メールによる情報配信に同意いただくことを参加条件とさせていただきます。</p>
+
+          <p>何卒ご理解とご協力を賜りますようお願い申し上げます。</p>
         </div>
 
         <label class="agreement">
-          <input id="consent" type="checkbox" required>個人情報の取り扱いに同意します。
+          <input id="consent" type="checkbox" required>
+          上記の個人情報の取り扱い、共催・協賛企業への個人情報の提供、および当該企業からの電子メールによる情報配信に同意します。
         </label>
       </fieldset>
 
@@ -171,7 +212,10 @@
         credentials: 'omit',
         redirect: 'follow'
       });
-      if (!response.ok) throw new Error('通信エラー（HTTP ' + response.status + '）');
+
+      if (!response.ok) {
+        throw new Error('通信エラー（HTTP ' + response.status + '）');
+      }
 
       let result;
       try {
@@ -180,7 +224,9 @@
         throw new Error('申込サーバーの応答を確認できませんでした。');
       }
 
-      if (!result.success) throw new Error(result.message || '処理に失敗しました。');
+      if (!result.success) {
+        throw new Error(result.message || '処理に失敗しました。');
+      }
       return result.data;
     }
 
@@ -204,8 +250,10 @@
       const confirmValue = confirmation.value.trim();
       const mismatch = confirmValue !== '' && $('email').value.trim() !== confirmValue;
       const errorText = mismatch ? 'メールアドレスが一致していません。' : '';
+
       confirmation.setCustomValidity(errorText);
       $('emailMatchMessage').textContent = touched ? errorText : '';
+
       if (touched && mismatch) {
         confirmation.setAttribute('aria-invalid', 'true');
       } else {
@@ -220,7 +268,7 @@
       checkEmail();
     });
 
-    function text(parent, className, value) {
+    function addText(parent, className, value) {
       const element = document.createElement('div');
       element.className = className;
       element.textContent = value;
@@ -231,6 +279,7 @@
       const open = page && page.registrationEnabled && page.events.some(event => event.available);
       const button = $('submitButton');
       button.disabled = !open || busy || completed;
+
       if (completed) {
         button.textContent = '申込完了';
       } else if (busy) {
@@ -251,25 +300,32 @@
 
       const events = $('events');
       events.replaceChildren();
+
       data.events.forEach(event => {
         const card = document.createElement('label');
         card.className = 'card';
+
         const title = document.createElement('div');
         title.className = 'event-name';
+
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.name = 'events';
         checkbox.value = event.id;
         checkbox.disabled = !event.available;
+
         title.append(checkbox, document.createTextNode(event.name));
         card.appendChild(title);
-        text(card, 'detail', event.start + '〜' + event.end.slice(-5) + '（日本時間・Web開催）');
-        text(card, 'event-title', event.title);
-        text(card, 'detail', '講師：' + event.speaker + '（' + event.affiliation + '）');
-        if (event.sponsor) text(card, 'detail', '企業・団体：' + event.sponsor);
-        text(card, 'detail', '申込締切：' + event.deadline + '｜' + event.status);
+
+        addText(card, 'detail', event.start + '〜' + event.end.slice(-5) + '（日本時間・Web開催）');
+        addText(card, 'event-title', event.title);
+        addText(card, 'detail', '講師：' + event.speaker + '（' + event.affiliation + '）');
+        if (event.sponsor) addText(card, 'detail', '企業・団体：' + event.sponsor);
+        addText(card, 'detail', '申込締切：' + event.deadline + '｜' + event.status);
+
         events.appendChild(card);
       });
+
       buttonState();
     }
 
@@ -282,9 +338,10 @@
       if (!$('applicationForm').reportValidity()) return;
 
       const ids = Array.from(
-        document.querySelectorAll('input[name=events]:checked:not(:disabled)'),
+        document.querySelectorAll('input[name="events"]:checked:not(:disabled)'),
         checkbox => checkbox.value
       );
+
       const message = $('message');
       if (!ids.length) {
         message.textContent = '参加希望のセミナーを選択してください。';
@@ -305,13 +362,21 @@
         .filter(item => ids.includes(item.id))
         .map(item => item.name + '｜' + item.start)
         .join('\n');
-      if (!confirm('以下の内容で申し込みますか？\n\n氏名：' + data.name + '\nメール：' + data.email + '\n\n' + summary)) return;
+
+      const confirmed = window.confirm(
+        '以下の内容で申し込みますか？\n\n'
+        + '氏名：' + data.name + '\n'
+        + 'メール：' + data.email + '\n\n'
+        + summary
+      );
+      if (!confirmed) return;
 
       const payload = JSON.stringify(data);
       if (payload !== lastPayload) {
         requestId = uuid();
         lastPayload = payload;
       }
+
       data.requestId = requestId;
       busy = true;
       $('formFields').disabled = true;
@@ -320,7 +385,10 @@
       message.textContent = '送信しています…';
 
       try {
-        const result = await requestPreSeminar('submit', { payload: JSON.stringify(data) });
+        const result = await requestPreSeminar('submit', {
+          payload: JSON.stringify(data)
+        });
+
         if (!result || !result.success) {
           message.textContent = '結果を確認できませんでした。';
           return;
