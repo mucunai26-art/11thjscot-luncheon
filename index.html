@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -33,6 +32,9 @@
     }
     .option { cursor: pointer; }
     .option:hover { background: #f1f5ff; }
+    button.option { display:block; width:100%; text-align:left; background:white; color:inherit; }
+    button.option:disabled { background:#f1f5f9; cursor:not-allowed; }
+    button.option.hidden { display:none; }
     .option strong { display: block; margin-bottom: 8px; }
     .option p { color: #64748b; margin: 0; font-size: 14px; }
     .field { margin: 18px 0; }
@@ -124,6 +126,7 @@
   font-size: 16px;
 }
 
+select {width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:white;} button:disabled {opacity:.55;cursor:not-allowed;} #submitButton,#changeConfirmButton {background:#1d4ed8;color:white;} #applicationDetails {white-space:pre-line;} .rankbox {background:#eff6ff;padding:14px;border-radius:10px;margin-bottom:24px;}
 </style>
 </head>
 <body>
@@ -131,19 +134,27 @@
     <h1>第11回日本臨床作業療法学会</h1>
     <p class="subtitle">セミナー参加申込・変更・キャンセル</p>
 
-    <div id="menu">
-      <div class="option" onclick="showNewForm()">
+<div class="privacy-notice">
+  <h3>セミナー抽選申込について</h3>
+  <p>対象：学会の早期参加登録を完了された方</p>
+  <p>申込期間：2026年12月7日（月）9:00 ～ 12月11日（金）17:00（日本時間）</p>
+  <p>抽選実施：12月11日（金）締切後<br>抽選結果通知：12月14日（月）</p>
+  <p>先着順ではありません。受付期間内にお申し込みいただいた方を対象に抽選を行います。抽選結果はメールにてお知らせします。</p>
+</div>
+<p id="receptionInfo" role="status" class="notice"></p>
+<div id="menu">
+      <button type="button" id="newOption" class="option" disabled onclick="showNewForm()">
         <strong>① 新しく申し込む</strong>
-        <p>空席のあるセミナーからお申し込みいただけます。</p>
-      </div>
-      <div class="option" onclick="showManageForm('change')">
-        <strong>② 申込内容を変更する</strong>
-        <p>申込済みの内容を確認・変更できます。</p>
-      </div>
-      <div class="option" onclick="showManageForm('cancel')">
+        <p id="newOptionText">受付状況を確認しています…</p>
+      </button>
+      <button type="button" id="manageOption" class="option" disabled onclick="showManageForm(receptionOpen?'change':'view')">
+        <strong id="manageOptionTitle">② 申込内容を確認する</strong>
+        <p id="manageOptionText">申込済みの内容を確認できます。</p>
+      </button>
+      <button type="button" id="cancelOption" class="option hidden" disabled onclick="showManageForm('cancel')">
         <strong>③ 申込をキャンセルする</strong>
         <p>申込済みのセミナーをキャンセルできます。</p>
-      </div>
+      </button>
     </div>
 <section id="manageForm" class="hidden">
   <h2 id="manageTitle">申込内容の確認</h2>
@@ -201,7 +212,7 @@
 
 <section id="newForm" class="hidden">
   
-      <h2>新規参加申込</h2>
+      <h2>新規抽選申込</h2><div class="privacy-notice">先着順ではありません。受付締切後、第1希望を優先して抽選し、残席がある場合は第2、第3希望の順に抽選します。申込時点では参加は確定しません。抽選結果は後日別途お知らせします。</div>
 
       <div class="field">
         <label for="name">氏名（必須）</label>
@@ -230,11 +241,11 @@
   </select>
 </div>
 
-      <p class="notice">各時間帯につき、1つのセミナーを選択できます。</p>
+      <p class="notice">ランチョン・ブランチは第3希望まで選択できます。各時間帯の当選は最大1件です。</p>
 <div class="privacy-notice">
   <h3>セミナー参加について</h3>
   <p>
-    各セミナーは、学会参加費をお支払いいただいている方であれば、
+    各セミナーは、学会の早期参加登録を完了された方であれば、
     追加料金なしでご参加いただけます。
   </p>
   <p>
@@ -249,82 +260,37 @@
 </div>
 <div class="privacy-notice">
   <h3>個人情報の取り扱いについて</h3>
-  <p>
-    本フォームで取得した個人情報は、第11回日本臨床作業療法学会におけるセミナーの参加受付、申込状況・定員の管理、参加者への連絡およびセミナー運営のために利用します。
-  </p>
-  <p>
-    取得する情報（氏名、所属施設・機関名、メールアドレス、職種、各セミナーの申込内容等）は、参加を申し込まれたセミナーの共催・協賛企業に提供します。
-  </p>
+  <p>本フォームで取得した個人情報は、第11回日本臨床作業療法学会におけるセミナーの参加受付、抽選、抽選結果の通知、参加者への連絡およびセミナー運営のために利用いたします。</p>
+  <p>抽選結果の通知等の業務を委託する場合は、必要な範囲で個人情報を委託先に提供いたします。</p>
+  <p>当選された方の個人情報（氏名、所属施設・機関名、メールアドレス、職種等）は、当選したセミナーの共催・協賛企業に提供いたします。</p>
+  <p>共催・協賛企業からは、セミナー関連資料、製品・サービスの紹介、関連情報等をメールにてご案内する場合がございます。</p>
+  <p>提供された個人情報は、関連法令および各企業のプライバシーポリシーに基づき適切に管理されます。メール配信の停止を希望される場合は、各企業の案内に従ってお手続きいただけます。</p>
+  <p>セミナーへのお申し込みにあたっては、上記の個人情報の取り扱い、共催・協賛企業への情報提供およびメール配信について同意いただく必要がございます。</p>
 </div>
 
       <div id="seminarList">
         <p>セミナー情報を読み込んでいます…</p>
       </div>
 
+      <div class="privacy-notice">
+        <label for="privacyConsent" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+          <input type="checkbox" id="privacyConsent" required style="width:20px;height:20px;flex-shrink:0;accent-color:#2563eb">
+          <span>上記の個人情報の取り扱いについて同意します。（必須）</span>
+        </label>
+      </div>
       <p id="message" role="status"></p>
 
       <button class="back" type="button" onclick="goBack()">
         戻る
       </button>
 
-      <button type="button" id="submitButton" onclick="submitApplication()">
-  この内容で申し込む
+      <button type="button" id="submitButton" disabled onclick="submitApplication()">
+  この内容で抽選に申し込む
 </button>
     </section>
   </main>
 
   <script>
-    const groups = [
-      {
-        title: '12月19日（土）11:40〜12:30｜ランチョンセミナー',
-        start: 0,
-        end: 3
-      },
-      {
-        title: '12月19日（土）16:40〜17:30｜スイーツセミナー',
-        start: 3,
-        end: 4
-      },
-      {
-        title: '12月20日（日）10:50〜11:40｜ブランチセミナー',
-        start: 4,
-        end: 7
-      }
-    ];
-
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxEv6F6PYKQ1Z52ohnMLxNw9jfpH-u9ZVRuZH3ObTZeSIYZEWuRvzndxdNQ8PyAvc8W/exec';
-    let requestInProgress = false;
-    async function api(action, fields = {}) {
-      const params = new URLSearchParams();
-      params.set('action', action);
-      Object.entries(fields).forEach(([key, value]) => {
-        params.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
-      });
-      const response = await fetch(API_URL, { method: 'POST', body: params, redirect: 'follow' });
-      if (!response.ok) throw new Error('通信エラー（HTTP ' + response.status + '）');
-      let result;
-      try { result = await response.json(); }
-      catch (_) { throw new Error('サーバーの応答を読み取れませんでした。'); }
-      if (!result || result.success !== true) throw new Error(result?.message || '処理に失敗しました。');
-      return result;
-    }
-    async function showNewForm() {
-      document.getElementById('menu').classList.add('hidden');
-      document.getElementById('newForm').classList.remove('hidden');
-      const message = document.getElementById('message');
-      message.textContent = '';
-      message.className = '';
-      document.getElementById('seminarList').textContent = 'セミナー情報を読み込んでいます…';
-      try {
-        const result = await api('availability');
-        renderSeminars(result.seminars);
-      } catch (error) {
-        document.getElementById('seminarList').textContent = '';
-        message.textContent = '読み込みに失敗しました：' + error.message;
-        message.className = 'error';
-      }
-    }
-
 const seminarDetails = {
   'ランチョン①': {
     title: 'Brain-Machine Interfaceは作業療法に何をもたらすか',
@@ -376,316 +342,56 @@ const seminarDetails = {
     sponsor: '株式会社MIXI'
   }
 };
-
-
-    function renderSeminars(seminars) {
-      const list = document.getElementById('seminarList');
-      list.replaceChildren();
-
-      groups.forEach(function(group, groupIndex) {
-        const heading = document.createElement('h2');
-        heading.textContent = group.title;
-        list.appendChild(heading);
-
-        seminars.slice(group.start, group.end).forEach(function(seminar) {
-          const card = document.createElement('div');
-          card.className = 'seminar' + (seminar.available ? '' : ' full');
-
-          const label = document.createElement('label');
-          const radio = document.createElement('input');
-          radio.type = 'radio';
-          radio.name = 'seminar' + groupIndex;
-          radio.value = seminar.name;
-          radio.disabled = !seminar.available;
-
-         
-label.appendChild(radio);
-label.appendChild(document.createTextNode(seminar.name));
-card.appendChild(label);
-
-const info = seminarDetails[seminar.name];
-
-if (info) {
-  const title = document.createElement('div');
-  title.style.fontWeight = 'bold';
-  title.style.marginTop = '8px';
-  title.textContent = info.title;
-  card.appendChild(title);
-
-  if (info.subtitle) {
-    const subtitle = document.createElement('div');
-    subtitle.style.fontSize = '13px';
-    subtitle.style.marginTop = '4px';
-    subtitle.textContent = info.subtitle;
-    card.appendChild(subtitle);
-  }
-
-  const speaker = document.createElement('div');
-  speaker.style.fontSize = '13px';
-  speaker.style.marginTop = '8px';
-  speaker.textContent = '講師：' + info.speaker;
-  card.appendChild(speaker);
-
-  const venue = document.createElement('div');
-  venue.style.fontSize = '13px';
-  venue.style.marginTop = '4px';
-  venue.textContent = '会場：' + info.venue;
-  card.appendChild(venue);
-    const sponsor = document.createElement('div');
-  sponsor.style.fontSize = '13px';
-  sponsor.style.marginTop = '4px';
-  sponsor.style.fontWeight = 'bold';
-  sponsor.textContent = '協賛企業：' + info.sponsor;
-  card.appendChild(sponsor);
-}
-
-
-          const detail = document.createElement('div');
-          detail.className = 'remaining';
-          detail.textContent = seminar.available
-            ? '残席 ' + seminar.remaining + '名'
-            : '満席（受付終了）';
-          card.appendChild(detail);
-
-          list.appendChild(card);
-        });
-
-        const noneCard = document.createElement('div');
-        noneCard.className = 'seminar';
-        const noneLabel = document.createElement('label');
-        const noneRadio = document.createElement('input');
-        noneRadio.type = 'radio';
-        noneRadio.name = 'seminar' + groupIndex;
-        noneRadio.value = '';
-        noneRadio.checked = true;
-        noneLabel.appendChild(noneRadio);
-        noneLabel.appendChild(
-          document.createTextNode('参加しない')
-        );
-        noneCard.appendChild(noneLabel);
-        list.appendChild(noneCard);
+async function api(action, fields = {}) {
+      const params = new URLSearchParams();
+      params.set('action', action);
+      Object.entries(fields).forEach(([key, value]) => {
+        params.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
       });
+      const response = await fetch(API_URL, { method: 'POST', body: params, redirect: 'follow' });
+      if (!response.ok) throw new Error('通信エラー（HTTP ' + response.status + '）');
+      let result;
+      try { result = await response.json(); }
+      catch (_) { throw new Error('サーバーの応答を読み取れませんでした。'); }
+      if (!result || result.success !== true) throw new Error(result?.message || '処理に失敗しました。');
+      return result;
     }
 
-    function goBack() {
-  document.getElementById('newForm').classList.add('hidden');
-  document.getElementById('manageForm').classList.add('hidden');
-  document.getElementById('menu').classList.remove('hidden');
-}
-    async function submitApplication() {
-      if (requestInProgress) return;
-      const message = document.getElementById('message');
-      const button = document.getElementById('submitButton');
-      const name = document.getElementById('name').value.trim();
-      const affiliation = document.getElementById('affiliation').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const profession = document.getElementById('profession').value;
-      if (!name || !affiliation || !email || !profession) {
-        message.textContent = '氏名・所属先・メールアドレス・職種をすべて入力してください。'; return;
-      }
-      if (!document.getElementById('email').checkValidity()) {
-        message.textContent = '正しいメールアドレスを入力してください。'; return;
-      }
-      const selected = index => {
-        const radio = document.querySelector('input[name="seminar' + index + '"]:checked');
-        return radio && radio.value ? radio.value : '参加しない';
-      };
-      const data = { name, affiliation, email, profession, lunch: selected(0), sweets: selected(1), brunch: selected(2) };
-      if (data.lunch === '参加しない' && data.sweets === '参加しない' && data.brunch === '参加しない') {
-        message.textContent = '参加するセミナーを1つ以上選択してください。'; return;
-      }
-      if (!confirm('この内容で申込を確定しますか？')) return;
-      requestInProgress = true;
-      button.disabled = true;
-      message.textContent = '申込内容を送信しています…';
-      try {
-        const result = await api('submit', { data });
-        message.textContent = (result.message || '申込が完了しました。') +
-          '\n\n【申込ID】\n' + result.applicationId +
-          '\n\n【確認コード】\n' + result.editToken +
-          '\n\n変更・キャンセル時に必要です。必ず控えてください。' +
-          '\n\n確認メールは順次送信されます。届かない場合は迷惑メールフォルダをご確認ください。';
-        button.textContent = '申込完了';
-      } catch (error) {
-        message.textContent = '処理結果を確認できませんでした：' + error.message +
-          '\n通信が中断された場合でも登録済みの可能性があります。再送信前にメールや管理者へ確認してください。';
-        button.disabled = false;
-      } finally { requestInProgress = false; }
-    }
-let manageMode = '';
+const CONSENT_VERSION = '2026-11-25-v1';
+const API_URL = 'https://script.google.com/macros/s/AKfycbx90Ku3tW6hmxeznVP24ggbx2jEfze_wSeCmKXmz5LRwrJsy4HqLrQnGGy5U09xVzob/exec';
+const $ = id => document.getElementById(id);
+const groups = [
+ {title:'12月19日（土）11:40〜12:30｜ランチョンセミナー',keys:['lunch','lunch2','lunch3'],names:['ランチョン①','ランチョン②','ランチョン③']},
+ {title:'12月19日（土）16:40〜17:30｜スイーツセミナー',keys:['sweets'],names:['スイーツ①']},
+ {title:'12月20日（日）10:50〜11:40｜ブランチセミナー',keys:['brunch','brunch2','brunch3'],names:['ブランチ①','ブランチ②','ブランチ③']}
+];
+let receptionOpen=false, receptionKnown=false;
+let busy=false, manageMode='', current=null, credentials=null, newReady=false;
+function syncConsent(){ $('submitButton').disabled=busy||!newReady||!$('privacyConsent').checked; }
+$('privacyConsent').addEventListener('change',syncConsent);
+const none='参加しない';
+function show(id,visible){$(id).classList.toggle('hidden',!visible);}
+function msg(id,value,error=false){$(id).textContent=value;$(id).className=error?'error':'';}
+function setBusy(value){busy=value;document.querySelectorAll('button').forEach(b=>{if(value){b.dataset.wasDisabled=String(b.disabled);b.disabled=true;}else if('wasDisabled' in b.dataset){b.disabled=b.dataset.wasDisabled==='true';delete b.dataset.wasDisabled;}});if(!value){$('newOption').disabled=!receptionOpen;$('manageOption').disabled=!receptionKnown;$('cancelOption').disabled=!receptionOpen;}}
+function updateMenu(r){receptionKnown=!!r;receptionOpen=r?.available===true;$('newOption').disabled=!receptionOpen;$('manageOption').disabled=!receptionKnown;$('cancelOption').disabled=!receptionOpen;show('cancelOption',receptionOpen);$('newOptionText').textContent=receptionOpen?'希望順位を選択して抽選にお申し込みいただけます。':(r?.message||'受付状況を確認できません。');$('manageOptionTitle').textContent=receptionOpen?'② 申込内容を変更する':'② 申込内容を確認する';$('manageOptionText').textContent=receptionOpen?'申込済みの内容を確認・変更できます。':'申込済みの内容を確認できます。';}
+async function initial(){const r=await api('initial');if(r.testMode!==false)throw Error('本番環境に接続できません。');if(r.consentVersion!==CONSENT_VERSION)throw Error('同意文面のバージョンが一致しません。ページを再読み込みしてください。');if(!r.reception||!Array.isArray(r.seminars))throw Error('受付情報が不正です。');msg('receptionInfo',[r.reception.message||r.reception.status,r.reception.startAt&&r.reception.endAt?'受付期間：'+r.reception.startAt+' ～ '+r.reception.endAt+'（日本時間）':''].filter(Boolean).join('\n'));updateMenu(r.reception);return r;}
+function render(listId,seminars,values={},enabled=true){const list=$(listId);list.replaceChildren();for(const g of groups){const h=document.createElement('h2');h.textContent=g.title;list.append(h);for(const name of g.names){const sem=seminars.find(x=>x.name===name);if(!sem)throw Error('セミナー情報が不足しています。');const info=seminarDetails[name];const card=document.createElement('div');card.className='seminar';for(const [i,line] of [name,info.title,info.subtitle,'講師：'+info.speaker,'会場：'+info.venue,'協賛企業：'+info.sponsor,'定員：'+sem.capacity+'名'].entries()){if(!line)continue;const d=document.createElement('div');d.textContent=line;d.style.marginTop='4px';if(i===0||i===1||i===5)d.style.fontWeight='bold';card.append(d);}list.append(card);}
+ const box=document.createElement('div');box.className='rankbox';const selects=[];g.keys.forEach((key,i)=>{const field=document.createElement('div');field.className='field';const label=document.createElement('label');label.htmlFor=listId+'-'+key;label.textContent=g.keys.length===1?'参加希望（必須）':`第${i+1}希望（${i===0?'必須':'任意'}）`;const select=document.createElement('select');select.id=label.htmlFor;select.dataset.key=key;selects.push(select);const options=i===0?[['','選択してください'],[none,none],...g.names.map(n=>[n,g.keys.length===1?'参加希望（'+n+'）':n])]:[['','希望なし'],...g.names.map(n=>[n,n])];for(const [v,t] of options)select.add(new Option(t,v));select.value=values[key]||'';field.append(label,select);box.append(field);});
+ function sync(){selects.forEach((sel,i)=>{if(i>0&&(!selects[i-1].value||selects[0].value===none))sel.value='';sel.disabled=!enabled||(i>0&&(!selects[i-1].value||selects[0].value===none));for(const opt of sel.options){opt.disabled=!!opt.value&&opt.value!==none&&selects.slice(0,i).some(prev=>prev.value===opt.value);}if(sel.selectedOptions[0]?.disabled)sel.value='';});}selects.forEach(sel=>sel.addEventListener('change',sync));sync();list.append(box);}}
+function choices(listId){const data={};for(const g of groups){for(const key of g.keys){const el=$(listId+'-'+key);if(!el)throw Error('セミナー情報を読み込んでください。');data[key]=el.value;}if(!data[g.keys[0]])throw Error('各時間帯の参加希望を選択してください。');}if(groups.every(g=>data[g.keys[0]]===none))throw Error('参加希望を1件以上選択してください。');return data;}
+function summary(d){return groups.map(g=>g.keys.map((k,i)=>(i===0?g.names[0].slice(0,-1)+'：':'  第'+(i+1)+'希望：')+(d[k]||'希望なし')).join('\n')).join('\n\n');}
+function goBack(){if(busy)return;show('newForm',false);show('manageForm',false);show('menu',true);current=null;credentials=null; $('manageToken').value='';window.scrollTo(0,0);refreshMenu();}
+async function showNewForm(){if(busy||!receptionOpen)return;show('menu',false);show('newForm',true);newReady=false;$('privacyConsent').checked=false;$('submitButton').disabled=true;$('submitButton').textContent='この内容で抽選に申し込む';$('seminarList').replaceChildren();msg('message','読み込み中…');setBusy(true);let enabled=false;try{const r=await initial();enabled=r.reception.available===true;if(!enabled){show('newForm',false);show('menu',true);return;}render('seminarList',r.seminars,{},enabled);msg('message',enabled?'':r.reception.message||'受付停止中');}catch(e){msg('message',e.message,true);}finally{setBusy(false);newReady=enabled;syncConsent();}}
+async function submitApplication(){if(busy||$('submitButton').disabled)return;let data;try{if(!$('privacyConsent').checked)throw Error('個人情報の取り扱いへの同意が必要です。');data=choices('seminarList');data.privacyConsent=true;data.consentVersion=CONSENT_VERSION;for(const key of ['name','affiliation','email','profession']){data[key]=$(key).value.trim();if(!data[key])throw Error('必須項目を入力してください。');}if(!$('email').checkValidity())throw Error('メールアドレスを確認してください。');}catch(e){msg('message',e.message,true);return;}if(!confirm('以下の内容で抽選に申し込みますか？\n\n'+summary(data)))return;setBusy(true);let success=false;msg('message','送信中…');try{const r=await api('submit',{data});success=true;msg('message',r.message+'\n\n【申込ID】\n'+r.applicationId+'\n\n【確認コード】\n'+r.editToken+'\n\n申込IDと確認コードは、申込内容の確認・変更・キャンセルに必要です。必ず保存してください。');$('submitButton').textContent='申込完了';}catch(e){msg('message',e.message+'\n通信が中断された場合は再送信前に管理者へ確認してください。',true);}finally{setBusy(false);if(success)newReady=false;syncConsent();}}
+function showManageForm(mode){if(busy||!receptionKnown)return;if(!receptionOpen)mode='view';manageMode=mode;current=null;credentials=null;show('menu',false);show('newForm',false);show('manageForm',true);show('manageActions',false);show('changeActions',false);show('cancelActions',false);$('manageTitle').textContent=mode==='change'?'申込内容を変更する':mode==='cancel'?'申込をキャンセルする':'申込内容を確認する';$('manageId').value='';$('manageToken').value='';msg('manageMessage','');msg('changeMessage','');$('changeSeminarList').replaceChildren();}
+function details(d){$('applicationDetails').textContent='氏名：'+d.name+'\n所属：'+d.affiliation+'\nメール：'+d.email+'\n申込状態：'+(d.displayStatus||d.status)+'\n\n'+summary(d);}
+async function lookupApplication(){if(busy)return;current=null;credentials=null;show('manageActions',false);show('changeActions',false);show('cancelActions',false);const c={applicationId:$('manageId').value.trim(),editToken:$('manageToken').value.trim()};if(!c.applicationId||!c.editToken){msg('manageMessage','申込IDと確認コードを入力してください。',true);return;}setBusy(true);msg('manageMessage','確認中…');try{const r=await initial();const a=(await api('lookup',c)).application;current=a;credentials=c;if(!r.reception.available){manageMode='view';$('manageTitle').textContent='申込内容を確認する';}details(a);show('manageActions',true);msg('manageMessage',a.receptionMessage||'申込情報を取得しました。');if(manageMode==='change'&&a.canEdit===true&&r.reception.available===true){render('changeSeminarList',r.seminars,a,true);msg('changeMessage','');show('changeActions',true);}if(manageMode==='cancel'&&a.canCancel===true&&r.reception.available===true)show('cancelActions',true);}catch(e){msg('manageMessage',e.message,true);}finally{setBusy(false);}}
+function validCredentials(){return credentials&&credentials.applicationId===$('manageId').value.trim()&&credentials.editToken===$('manageToken').value.trim();}
+async function confirmApplicationChange(){if(busy||!current||!validCredentials())return;let data;try{data=choices('changeSeminarList');}catch(e){msg('changeMessage',e.message,true);return;}if(!confirm('以下の希望順位に変更しますか？\n\n'+summary(data)))return;setBusy(true);try{const r=await api('change',{...credentials,data});current={...current,...data};details(current);msg('manageMessage',r.message);show('changeActions',false);}catch(e){msg('changeMessage',e.message+'\n再送信前に申込内容を再確認してください。',true);}finally{setBusy(false);}}
+async function confirmCancellation(){if(busy||!current||!validCredentials())return;if(!confirm('申込をキャンセルしますか？'))return;setBusy(true);try{const r=await api('cancel',credentials);msg('manageMessage',r.message);show('manageActions',false);current=null;credentials=null;}catch(e){msg('manageMessage',e.message+'\n再送信前に申込内容を再確認してください。',true);}finally{setBusy(false);}}
+async function refreshMenu(){updateMenu(null);try{await initial();}catch(e){updateMenu(null);msg('receptionInfo',e.message,true);}}
+refreshMenu();
 
-function showManageForm(mode) {
-  manageMode = mode;
-
-  document.getElementById('menu').classList.add('hidden');
-  document.getElementById('newForm').classList.add('hidden');
-  document.getElementById('manageForm').classList.remove('hidden');
-
-  document.getElementById('manageTitle').textContent =
-    mode === 'change' ? '申込内容を変更する' : '申込をキャンセルする';
-
-  document.getElementById('manageId').value = '';
-  document.getElementById('manageToken').value = '';
-  document.getElementById('manageMessage').textContent = '';
-  document.getElementById('manageActions').classList.add('hidden');
-document.getElementById('changeSeminarList').replaceChildren();
-document.getElementById('changeMessage').textContent = '';
-}
-    
-
- async function lookupApplication() {
-   const id = document.getElementById('manageId').value.trim();
-   const token = document.getElementById('manageToken').value.trim();
-   const message = document.getElementById('manageMessage');
-   if (!id || !token) { message.textContent = '申込IDと確認コードを入力してください。'; return; }
-   document.getElementById('manageActions').classList.add('hidden');
-   message.textContent = '申込内容を確認しています…';
-   try {
-     const response = await api('lookup', { applicationId: id, editToken: token });
-     const result = response.application;
-     message.textContent = '申込情報を取得しました。';
-     document.getElementById('manageActions').classList.remove('hidden');
-     document.getElementById('applicationDetails').textContent =
-       '氏名：' + result.name + '\n所属：' + result.affiliation +
-       '\nメール：' + result.email + '\n申込状態：' + result.status +
-       '\nランチョン：' + (result.lunch || '参加しない') +
-       '\nスイーツ：' + (result.sweets || '参加しない') +
-       '\nブランチ：' + (result.brunch || '参加しない');
-     document.getElementById('applicationDetails').style.whiteSpace = 'pre-line';
-     document.getElementById('changeActions').classList.toggle('hidden', manageMode !== 'change' || result.status !== '申込確定');
-     document.getElementById('cancelActions').classList.toggle('hidden', manageMode !== 'cancel' || result.status !== '申込確定');
-     if (manageMode === 'change' && result.status === '申込確定') await showChangeOptions(result);
-   } catch (error) { message.textContent = '確認できませんでした：' + error.message; }
- }
-
-async function showChangeOptions(application) {
-  const list = document.getElementById('changeSeminarList');
-  list.replaceChildren();
-  const current = [application.lunch || '参加しない', application.sweets || '参加しない', application.brunch || '参加しない'];
-  const message = document.getElementById('changeMessage');
-  message.textContent = 'セミナー情報を読み込んでいます…';
-  try {
-    const response = await api('availability');
-    const seminars = response.seminars;
-list.replaceChildren();
-
-      groups.forEach(function(group, groupIndex) {
-        const heading = document.createElement('h2');
-        heading.textContent = group.title;
-        list.appendChild(heading);
-
-        seminars.slice(group.start, group.end).forEach(function(seminar) {
-          const isCurrent = seminar.name === current[groupIndex];
-
-          const card = document.createElement('div');
-          card.className = 'seminar';
-
-          const label = document.createElement('label');
-          const radio = document.createElement('input');
-
-          radio.type = 'radio';
-          radio.name = 'changeSeminar' + groupIndex;
-          radio.value = seminar.name;
-          radio.checked = isCurrent;
-          radio.disabled = !seminar.available && !isCurrent;
-
-          label.appendChild(radio);
-          label.appendChild(document.createTextNode(
-            seminar.name + (isCurrent ? '（現在の申込）' : '')
-          ));
-
-          card.appendChild(label);
-
-          const detail = document.createElement('div');
-          detail.className = 'remaining';
-          detail.textContent = isCurrent
-            ? '現在申し込んでいるセミナー'
-            : seminar.available
-              ? '残席 ' + seminar.remaining + '名'
-              : '満席（選択不可）';
-
-          card.appendChild(detail);
-          list.appendChild(card);
-        });
-
-        const noneCard = document.createElement('div');
-        noneCard.className = 'seminar';
-
-        const noneLabel = document.createElement('label');
-        const noneRadio = document.createElement('input');
-
-        noneRadio.type = 'radio';
-        noneRadio.name = 'changeSeminar' + groupIndex;
-        noneRadio.value = '参加しない';
-        noneRadio.checked = current[groupIndex] === '参加しない';
-
-        noneLabel.appendChild(noneRadio);
-        noneLabel.appendChild(
-          document.createTextNode('参加しない')
-        );
-
-        noneCard.appendChild(noneLabel);
-        list.appendChild(noneCard);
-      });
-
-      message.textContent = '';
-  } catch (error) { message.textContent = 'セミナー情報を取得できませんでした：' + error.message; }
-}
-
-async function confirmApplicationChange() {
-  if (requestInProgress) return;
-  const keys = ['lunch', 'sweets', 'brunch'];
-  const labels = ['ランチョン', 'スイーツ', 'ブランチ'];
-  const changes = {};
-  const message = document.getElementById('changeMessage');
-  const button = document.getElementById('changeConfirmButton');
-  for (let i = 0; i < keys.length; i++) {
-    const selected = document.querySelector('input[name="changeSeminar' + i + '"]:checked');
-    if (!selected) { message.textContent = 'セミナー情報を読み込み中です。'; return; }
-    changes[keys[i]] = selected.value;
-  }
-  const summary = labels.map((label, i) => label + '：' + changes[keys[i]]).join('\n');
-  if (!confirm('以下の内容に変更しますか？\n\n' + summary)) return;
-  const applicationId = document.getElementById('manageId').value.trim();
-  const editToken = document.getElementById('manageToken').value.trim();
-  requestInProgress = true; button.disabled = true;
-  message.textContent = '変更内容を保存しています…';
-  try {
-    const result = await api('change', { applicationId, editToken, data: changes });
-    message.textContent = (result.message || '変更が完了しました。') +
-      '\n確認メールは順次送信されます。';
-    document.getElementById('manageMessage').textContent = '変更が完了しました。\n' + summary;
-    document.getElementById('applicationDetails').textContent += '\n【変更後】\n' + summary;
-    document.getElementById('changeActions').classList.add('hidden');
-  } catch (error) {
-    message.textContent = '変更結果を確認できませんでした：' + error.message +
-      '\n通信が中断された場合は再送信せず、申込内容を再確認してください。';
-    button.disabled = false;
-  } finally { requestInProgress = false; }
-}
-
-async function confirmCancellation() {
-  if (requestInProgress) return;
-  const applicationId = document.getElementById('manageId').value.trim();
-  const editToken = document.getElementById('manageToken').value.trim();
-  const message = document.getElementById('manageMessage');
-  if (!applicationId || !editToken) { message.textContent = '申込IDと確認コードを入力してください。'; return; }
-  if (!confirm('この申込をキャンセルしますか？\nキャンセル後は元に戻せません。')) return;
-  requestInProgress = true;
-  message.textContent = 'キャンセル処理を実行しています…';
-  try {
-    const result = await api('cancel', { applicationId, editToken });
-    message.textContent = (result.message || '申込をキャンセルしました。') +
-      '\n確認メールは順次送信されます。';
-    document.getElementById('manageActions').classList.add('hidden');
-  } catch (error) {
-    message.textContent = 'キャンセル結果を確認できませんでした：' + error.message +
-      '\n通信が中断された場合は再送信せず、申込内容を再確認してください。';
-  } finally { requestInProgress = false; }
-}
-
-  </script>
+</script>
 </body>
 </html>
-
-
