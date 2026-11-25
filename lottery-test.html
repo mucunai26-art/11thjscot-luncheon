@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第11回日本臨床作業療法学会 セミナー参加申込</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #263445;
+      margin: 0;
+      padding: 24px 16px;
+    }
+    .container {
+      max-width: 680px;
+      margin: 24px auto;
+      background: white;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 4px 20px #00000012;
+    }
+    h1 { font-size: 23px; line-height: 1.5; }
+    h2 { font-size: 18px; margin-top: 28px; }
+    .subtitle { color: #64748b; }
+    .option, .seminar {
+      border: 1px solid #dbe3ee;
+      border-radius: 10px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+    .option { cursor: pointer; }
+    .option:hover { background: #f1f5ff; }
+    .option strong { display: block; margin-bottom: 8px; }
+    .option p { color: #64748b; margin: 0; font-size: 14px; }
+    .field { margin: 18px 0; }
+    .field label { display: block; margin-bottom: 7px; font-weight: bold; }
+    input[type="text"], input[type="email"] {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    .seminar label { display: block; line-height: 1.6; }
+    .seminar input { margin-right: 8px; }
+    .full { background: #f8fafc; color: #94a3b8; }
+    .remaining { font-size: 13px; color: #64748b; margin-top: 6px; }
+    .notice { color: #64748b; font-size: 14px; }
+    .error { color: #b91c1c; }
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .back { background: #e2e8f0; }
+    .hidden { display: none; }
+
+    /* スマートフォン対応 */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { overflow-wrap: anywhere; }
+    .privacy-notice {
+      background: #f8fafc;
+      border: 1px solid #dbe3ee;
+      border-radius: 10px;
+      padding: 16px 18px;
+      margin: 20px 0 26px;
+      line-height: 1.75;
+    }
+    .privacy-notice h3 { margin: 0 0 8px; font-size: 16px; }
+    .privacy-notice p { margin: 8px 0; }
+    .seminar { transition: background-color .15s, border-color .15s; }
+    .seminar:has(input:checked) { border-color: #2563eb; background: #eff6ff; }
+    .seminar:has(input:disabled) { opacity: .7; }
+    .seminar input[type="radio"] { accent-color: #2563eb; width: 19px; height: 19px; vertical-align: middle; }
+    .seminar label { cursor: pointer; font-weight: 600; }
+    button:focus-visible, input:focus-visible, .option:focus-visible { outline: 3px solid #60a5fa; outline-offset: 2px; }
+    #message, #manageMessage, #changeMessage {
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+    #message { white-space: pre-line; }
+    @media (max-width: 600px) {
+      body { padding: 10px 10px 28px; font-size: 16px; line-height: 1.65; }
+      .container { max-width: 100%; margin: 8px auto; padding: 20px 16px 26px; border-radius: 12px; }
+      h1 { font-size: 21px; line-height: 1.45; margin: 0 0 8px; }
+      h2 { font-size: 18px; line-height: 1.5; margin: 26px 0 12px; }
+      h3 { font-size: 17px; }
+      .subtitle { font-size: 15px; margin: 0 0 18px; }
+      .option { padding: 18px 15px; margin: 12px 0; min-height: 86px; }
+      .option strong { font-size: 18px; line-height: 1.5; }
+      .option p { font-size: 15px; line-height: 1.6; }
+      .field { margin: 18px 0; }
+      .field label { font-size: 16px; }
+      input[type="text"], input[type="email"] { min-height: 50px; padding: 12px 13px; font-size: 16px; }
+      .notice { font-size: 14px; line-height: 1.7; }
+      .privacy-notice { padding: 14px; font-size: 14px; line-height: 1.7; }
+      .privacy-notice h3 { font-size: 16px; }
+      .seminar { padding: 16px 14px; margin: 10px 0; }
+      .seminar label { font-size: 16px; line-height: 1.65; }
+      .seminar input[type="radio"] { width: 21px; height: 21px; margin-right: 10px; }
+      .seminar > div:not(.remaining) { font-size: 15px !important; line-height: 1.65; }
+      .seminar > div:not(.remaining):first-of-type { font-size: 16px !important; }
+      .remaining { font-size: 14px; margin-top: 8px; }
+      button { min-height: 48px; padding: 12px 15px; font-size: 16px; margin: 5px 5px 5px 0; }
+      #submitButton { display: block; width: 100%; margin: 12px 0; background: #1d4ed8; color: white; font-weight: bold; }
+      #submitButton:disabled { opacity: .65; }
+      #manageActions, #changeSeminarList, #seminarList { min-width: 0; }
+    }
+  
+#manageToken {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+select {width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:white;} button:disabled {opacity:.55;cursor:not-allowed;} #submitButton,#changeConfirmButton {background:#1d4ed8;color:white;} #applicationDetails {white-space:pre-line;} .rankbox {background:#eff6ff;padding:14px;border-radius:10px;margin-bottom:24px;}
+</style>
+</head>
+<body>
+  <main class="container">
+    <h1>第11回日本臨床作業療法学会</h1>
+    <p class="subtitle">セミナー参加申込・変更・キャンセル</p>
+
+    <p id="testBanner" class="privacy-notice" style="color:#b91c1c;font-weight:bold">抽選テスト用：実際の個人情報は入力しないでください。</p>
+<p id="receptionInfo" role="status" class="notice"></p>
+<div id="menu">
+      <div class="option" onclick="showNewForm()">
+        <strong>① 新しく申し込む</strong>
+        <p>希望順位を選択して抽選にお申し込みいただけます。</p>
+      </div>
+      <div class="option" onclick="showManageForm('change')">
+        <strong>② 申込内容を変更する</strong>
+        <p>申込済みの内容を確認・変更できます。</p>
+      </div>
+      <div class="option" onclick="showManageForm('cancel')">
+        <strong>③ 申込をキャンセルする</strong>
+        <p>申込済みのセミナーをキャンセルできます。</p>
+      </div>
+    </div>
+<section id="manageForm" class="hidden">
+  <h2 id="manageTitle">申込内容の確認</h2>
+
+  <p>申込完了時に発行された申込IDと確認コードを入力してください。</p>
+
+  <div class="field">
+    <label for="manageId">申込ID（必須）</label>
+    <input type="text" id="manageId">
+  </div>
+
+  <div class="field">
+    <label for="manageToken">確認コード（必須）</label>
+    <input type="password" id="manageToken" autocomplete="off">
+  </div>
+
+  <p id="manageMessage" role="status"></p>
+
+  <button type="button" onclick="lookupApplication()">
+    申込内容を確認する
+  </button>
+
+  <button class="back" type="button" onclick="goBack()">
+    戻る
+  </button>
+   
+<div id="manageActions" class="hidden">
+  <h3>現在の申込内容</h3>
+  <p id="applicationDetails"></p>
+
+  <div id="changeActions" class="hidden">
+    <h3>変更するセミナーを選択</h3>
+    <p class="notice">
+      現在の申込内容が選択されています。
+      変更したいセミナーだけ選び直してください。
+    </p>
+
+    <div id="changeSeminarList"></div>
+
+    <p id="changeMessage" role="status"></p>
+
+    <button type="button" id="changeConfirmButton"
+            onclick="confirmApplicationChange()">
+      変更内容を確認する
+    </button>
+  </div>
+
+  <div id="cancelActions" class="hidden">
+    <button type="button" onclick="confirmCancellation()">
+      申込をキャンセルする
+    </button>
+  </div>
+</div>
+</section>
+
+<section id="newForm" class="hidden">
+  
+      <h2>新規抽選申込</h2><div class="privacy-notice">先着順ではありません。受付締切後、第1希望を優先して抽選し、残席がある場合は第2、第3希望の順に抽選します。申込時点では参加は確定しません。抽選結果は後日別途お知らせします。</div>
+
+      <div class="field">
+        <label for="name">氏名（必須）</label>
+        <input type="text" id="name" autocomplete="name" required>
+      </div>
+
+      <div class="field">
+        <label for="affiliation">所属先（必須）</label>
+        <input type="text" id="affiliation" required>
+      </div>
+
+      <div class="field">
+        <label for="email">メールアドレス（必須）</label>
+        <input type="email" id="email" autocomplete="email" required>
+      </div>
+
+<div class="field">
+  <label for="profession">職種（必須）</label>
+  <select id="profession" required
+          style="width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:16px;background:white;">
+    <option value="">選択してください</option>
+    <option value="作業療法士">作業療法士</option>
+    <option value="理学療法士">理学療法士</option>
+    <option value="言語聴覚士">言語聴覚士</option>
+    <option value="その他">その他</option>
+  </select>
+</div>
+
+      <p class="notice">ランチョン・ブランチは第3希望まで選択できます。各時間帯の当選は最大1件です。</p>
+<div class="privacy-notice">
+  <h3>セミナー参加について</h3>
+  <p>
+    各セミナーは、学会の早期参加登録を完了された方であれば、
+    追加料金なしでご参加いただけます。
+  </p>
+  <p>
+    なお、ランチョン・ブランチセミナーでは昼食を、
+    スイーツセミナーでは甘味をご用意しております。
+  </p>
+</div>
+<div class="privacy-notice">
+  <h3>重複申込について</h3>
+  <p>同一の方による複数のお申し込みが確認された場合、原則として最初のお申し込みのみを有効とさせていただきます。</p>
+  <p>申込内容を変更・キャンセルされる場合は、新たに申し込まず、トップページの「申込内容を変更する」「申込をキャンセルする」からお手続きください。</p>
+</div>
+<div class="privacy-notice">
+  <h3>個人情報の取り扱いについて</h3>
+  <p>本フォームで取得した個人情報は、第11回日本臨床作業療法学会におけるセミナーの参加受付、抽選、抽選結果の通知、参加者への連絡およびセミナー運営のために利用いたします。</p>
+  <p>抽選結果の通知等の業務を委託する場合は、必要な範囲で個人情報を委託先に提供いたします。</p>
+  <p>当選された方の個人情報（氏名、所属施設・機関名、メールアドレス、職種等）は、当選したセミナーの共催・協賛企業に提供いたします。</p>
+  <p>共催・協賛企業からは、セミナー関連資料、製品・サービスの紹介、関連情報等をメールにてご案内する場合がございます。</p>
+  <p>提供された個人情報は、関連法令および各企業のプライバシーポリシーに基づき適切に管理されます。メール配信の停止を希望される場合は、各企業の案内に従ってお手続きいただけます。</p>
+  <p>セミナーへのお申し込みにあたっては、上記の個人情報の取り扱い、共催・協賛企業への情報提供およびメール配信について同意いただく必要がございます。</p>
+</div>
+
+      <div id="seminarList">
+        <p>セミナー情報を読み込んでいます…</p>
+      </div>
+
+      <div class="privacy-notice">
+        <label for="privacyConsent" style="display:flex;align-items:flex-start;gap:10px;cursor:pointer">
+          <input type="checkbox" id="privacyConsent" required style="width:20px;height:20px;flex-shrink:0;accent-color:#2563eb">
+          <span>上記の個人情報の取り扱いについて同意します。（必須）</span>
+        </label>
+      </div>
+      <p id="message" role="status"></p>
+
+      <button class="back" type="button" onclick="goBack()">
+        戻る
+      </button>
+
+      <button type="button" id="submitButton" disabled onclick="submitApplication()">
+  この内容で抽選に申し込む
+</button>
+    </section>
+  </main>
+
+  <script>
+const seminarDetails = {
+  'ランチョン①': {
+    title: 'Brain-Machine Interfaceは作業療法に何をもたらすか',
+    subtitle: '―重度上肢麻痺への介入とポータブルBCIによる在宅展開―',
+    speaker: '庵本 直矢',
+    venue: '講堂・第1会場',
+    sponsor: '株式会社LIFESCAPES'
+  },
+  'ランチョン②': {
+    title: '生活を見据えたリハビリテーションのゴール設定',
+    subtitle: '――「もっとがんばれ」と言う前に、私たちが発見すべきもの',
+    speaker: '張本 浩平',
+    venue: '階段教室402教室・第2会場',
+    sponsor: '株式会社gene'
+  },
+  'ランチョン③': {
+    title: '医療・介護などの地域資源と連携した自費リハビリの実践',
+    subtitle: '―地域における自費リハビリの役割―',
+    speaker: '原田 彩夏',
+    venue: '中教室304教室・第3会場',
+    sponsor: '帝人株式会社'
+  },
+  'スイーツ①': {
+    title: '麻痺手の生活場面での使用につなげるリハビリテーション',
+    subtitle: '―病態理解と手指リハビリテーションロボットの臨床活用―',
+    speaker: '夏山 真一・堀 翔平',
+    venue: '中教室304教室・第3会場',
+    sponsor: '株式会社SANMATSU'
+  },
+  'ブランチ①': {
+    title: '理論は臨床の何を変えるのか？',
+    subtitle: '',
+    speaker: '斎藤 祐樹',
+    venue: '講堂・第1会場',
+    sponsor: 'リハテックリンクス'
+  },
+  'ブランチ②': {
+    title: '生活・職業関連動作の再獲得に向けた手指リハビリテーションロボットの活用',
+    subtitle: '',
+    speaker: '宇佐美 こずえ・山本 大稀・道願 正歩',
+    venue: '階段教室402教室・第2会場',
+    sponsor: 'FrontAct株式会社'
+  },
+  'ブランチ③': {
+    title: '会話AIロボットRomiとRomiCore SDKが拓く、生活場面における作業参加支援の可能性',
+    subtitle: '',
+    speaker: '長岡 輝',
+    venue: '中教室304教室・第3会場',
+    sponsor: '株式会社MIXI'
+  }
+};
+async function api(action, fields = {}) {
+      const params = new URLSearchParams();
+      params.set('action', action);
+      Object.entries(fields).forEach(([key, value]) => {
+        params.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
+      });
+      const response = await fetch(API_URL, { method: 'POST', body: params, redirect: 'follow' });
+      if (!response.ok) throw new Error('通信エラー（HTTP ' + response.status + '）');
+      let result;
+      try { result = await response.json(); }
+      catch (_) { throw new Error('サーバーの応答を読み取れませんでした。'); }
+      if (!result || result.success !== true) throw new Error(result?.message || '処理に失敗しました。');
+      return result;
+    }
+
+const CONSENT_VERSION = '2026-11-25-v1';
+const API_URL = 'https://script.google.com/macros/s/AKfycbyBJGywr9V9tDSbVUCld0m0_SlXjHQkVjzzCt5Iuudvv5toqi_VTbCYTwhsuhA9ZQPG/exec';
+const $ = id => document.getElementById(id);
+const groups = [
+ {title:'12月19日（土）11:40〜12:30｜ランチョンセミナー',keys:['lunch','lunch2','lunch3'],names:['ランチョン①','ランチョン②','ランチョン③']},
+ {title:'12月19日（土）16:40〜17:30｜スイーツセミナー',keys:['sweets'],names:['スイーツ①']},
+ {title:'12月20日（日）10:50〜11:40｜ブランチセミナー',keys:['brunch','brunch2','brunch3'],names:['ブランチ①','ブランチ②','ブランチ③']}
+];
+let busy=false, manageMode='', current=null, credentials=null, newReady=false;
+function syncConsent(){ $('submitButton').disabled=busy||!newReady||!$('privacyConsent').checked; }
+$('privacyConsent').addEventListener('change',syncConsent);
+const none='参加しない';
+function show(id,visible){$(id).classList.toggle('hidden',!visible);}
+function msg(id,value,error=false){$(id).textContent=value;$(id).className=error?'error':'';}
+function setBusy(value){busy=value;document.querySelectorAll('button').forEach(b=>{if(value){b.dataset.wasDisabled=String(b.disabled);b.disabled=true;}else if('wasDisabled' in b.dataset){b.disabled=b.dataset.wasDisabled==='true';delete b.dataset.wasDisabled;}});}
+async function initial(){const r=await api('initial');if(r.testMode!==true)throw Error('テスト環境ではありません。');if(r.consentVersion!==CONSENT_VERSION)throw Error('同意文面のバージョンが一致しません。ページを再読み込みしてください。');if(!r.reception||!Array.isArray(r.seminars))throw Error('受付情報が不正です。');msg('receptionInfo',[r.reception.message||r.reception.status,r.reception.startAt&&r.reception.endAt?'受付期間：'+r.reception.startAt+' ～ '+r.reception.endAt+'（日本時間）':''].filter(Boolean).join('\n'));return r;}
+function render(listId,seminars,values={},enabled=true){const list=$(listId);list.replaceChildren();for(const g of groups){const h=document.createElement('h2');h.textContent=g.title;list.append(h);for(const name of g.names){const sem=seminars.find(x=>x.name===name);if(!sem)throw Error('セミナー情報が不足しています。');const info=seminarDetails[name];const card=document.createElement('div');card.className='seminar';for(const [i,line] of [name,info.title,info.subtitle,'講師：'+info.speaker,'会場：'+info.venue,'協賛企業：'+info.sponsor,'定員：'+sem.capacity+'名'].entries()){if(!line)continue;const d=document.createElement('div');d.textContent=line;d.style.marginTop='4px';if(i===0||i===1||i===5)d.style.fontWeight='bold';card.append(d);}list.append(card);}
+ const box=document.createElement('div');box.className='rankbox';const selects=[];g.keys.forEach((key,i)=>{const field=document.createElement('div');field.className='field';const label=document.createElement('label');label.htmlFor=listId+'-'+key;label.textContent=g.keys.length===1?'参加希望（必須）':`第${i+1}希望（${i===0?'必須':'任意'}）`;const select=document.createElement('select');select.id=label.htmlFor;select.dataset.key=key;selects.push(select);const options=i===0?[['','選択してください'],[none,none],...g.names.map(n=>[n,g.keys.length===1?'参加希望（'+n+'）':n])]:[['','希望なし'],...g.names.map(n=>[n,n])];for(const [v,t] of options)select.add(new Option(t,v));select.value=values[key]||'';field.append(label,select);box.append(field);});
+ function sync(){selects.forEach((sel,i)=>{if(i>0&&(!selects[i-1].value||selects[0].value===none))sel.value='';sel.disabled=!enabled||(i>0&&(!selects[i-1].value||selects[0].value===none));for(const opt of sel.options){opt.disabled=!!opt.value&&opt.value!==none&&selects.slice(0,i).some(prev=>prev.value===opt.value);}if(sel.selectedOptions[0]?.disabled)sel.value='';});}selects.forEach(sel=>sel.addEventListener('change',sync));sync();list.append(box);}}
+function choices(listId){const data={};for(const g of groups){for(const key of g.keys){const el=$(listId+'-'+key);if(!el)throw Error('セミナー情報を読み込んでください。');data[key]=el.value;}if(!data[g.keys[0]])throw Error('各時間帯の参加希望を選択してください。');}if(groups.every(g=>data[g.keys[0]]===none))throw Error('参加希望を1件以上選択してください。');return data;}
+function summary(d){return groups.map(g=>g.keys.map((k,i)=>(i===0?g.names[0].slice(0,-1)+'：':'  第'+(i+1)+'希望：')+(d[k]||'希望なし')).join('\n')).join('\n\n');}
+function goBack(){if(busy)return;show('newForm',false);show('manageForm',false);show('menu',true);current=null;credentials=null; $('manageToken').value='';window.scrollTo(0,0);}
+async function showNewForm(){if(busy)return;show('menu',false);show('newForm',true);newReady=false;$('privacyConsent').checked=false;$('submitButton').disabled=true;$('submitButton').textContent='この内容で抽選に申し込む';$('seminarList').replaceChildren();msg('message','読み込み中…');setBusy(true);let enabled=false;try{const r=await initial();enabled=r.reception.available===true;render('seminarList',r.seminars,{},enabled);msg('message',enabled?'':r.reception.message||'受付停止中');}catch(e){msg('message',e.message,true);}finally{setBusy(false);newReady=enabled;syncConsent();}}
+async function submitApplication(){if(busy||$('submitButton').disabled)return;let data;try{if(!$('privacyConsent').checked)throw Error('個人情報の取り扱いへの同意が必要です。');data=choices('seminarList');data.privacyConsent=true;data.consentVersion=CONSENT_VERSION;for(const key of ['name','affiliation','email','profession']){data[key]=$(key).value.trim();if(!data[key])throw Error('必須項目を入力してください。');}if(!$('email').checkValidity())throw Error('メールアドレスを確認してください。');}catch(e){msg('message',e.message,true);return;}if(!confirm('以下の内容で抽選に申し込みますか？\n\n'+summary(data)))return;setBusy(true);let success=false;msg('message','送信中…');try{const r=await api('submit',{data});success=true;msg('message',r.message+'\n\n【申込ID】\n'+r.applicationId+'\n\n【確認コード】\n'+r.editToken+'\n\n必ず保存してください。テストでは実メールは送信されません。');$('submitButton').textContent='申込完了';}catch(e){msg('message',e.message+'\n通信が中断された場合は再送信前に管理者へ確認してください。',true);}finally{setBusy(false);if(success)newReady=false;syncConsent();}}
+function showManageForm(mode){if(busy)return;manageMode=mode;current=null;credentials=null;show('menu',false);show('newForm',false);show('manageForm',true);show('manageActions',false);show('changeActions',false);show('cancelActions',false);$('manageTitle').textContent=mode==='change'?'申込内容を変更する':'申込をキャンセルする';$('manageId').value='';$('manageToken').value='';msg('manageMessage','');msg('changeMessage','');$('changeSeminarList').replaceChildren();}
+function details(d){$('applicationDetails').textContent='氏名：'+d.name+'\n所属：'+d.affiliation+'\nメール：'+d.email+'\n申込状態：'+(d.displayStatus||d.status)+'\n\n'+summary(d);}
+async function lookupApplication(){if(busy)return;current=null;credentials=null;show('manageActions',false);show('changeActions',false);show('cancelActions',false);const c={applicationId:$('manageId').value.trim(),editToken:$('manageToken').value.trim()};if(!c.applicationId||!c.editToken){msg('manageMessage','申込IDと確認コードを入力してください。',true);return;}setBusy(true);msg('manageMessage','確認中…');try{const r=await initial();const a=(await api('lookup',c)).application;current=a;credentials=c;details(a);show('manageActions',true);msg('manageMessage',a.receptionMessage||'申込情報を取得しました。');if(manageMode==='change'&&a.canEdit===true&&r.reception.available===true){render('changeSeminarList',r.seminars,a,true);msg('changeMessage','');show('changeActions',true);}if(manageMode==='cancel'&&a.canCancel===true&&r.reception.available===true)show('cancelActions',true);}catch(e){msg('manageMessage',e.message,true);}finally{setBusy(false);}}
+function validCredentials(){return credentials&&credentials.applicationId===$('manageId').value.trim()&&credentials.editToken===$('manageToken').value.trim();}
+async function confirmApplicationChange(){if(busy||!current||!validCredentials())return;let data;try{data=choices('changeSeminarList');}catch(e){msg('changeMessage',e.message,true);return;}if(!confirm('以下の希望順位に変更しますか？\n\n'+summary(data)))return;setBusy(true);try{const r=await api('change',{...credentials,data});current={...current,...data};details(current);msg('manageMessage',r.message);show('changeActions',false);}catch(e){msg('changeMessage',e.message+'\n再送信前に申込内容を再確認してください。',true);}finally{setBusy(false);}}
+async function confirmCancellation(){if(busy||!current||!validCredentials())return;if(!confirm('申込をキャンセルしますか？'))return;setBusy(true);try{const r=await api('cancel',credentials);msg('manageMessage',r.message);show('manageActions',false);current=null;credentials=null;}catch(e){msg('manageMessage',e.message+'\n再送信前に申込内容を再確認してください。',true);}finally{setBusy(false);}}
+initial().catch(e=>msg('receptionInfo',e.message,true));
+
+</script>
+</body>
+</html>
