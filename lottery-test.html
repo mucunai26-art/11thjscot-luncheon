@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -33,6 +32,9 @@
     }
     .option { cursor: pointer; }
     .option:hover { background: #f1f5ff; }
+    button.option { display:block; width:100%; text-align:left; background:white; color:inherit; }
+    button.option:disabled { background:#f1f5f9; cursor:not-allowed; }
+    button.option.hidden { display:none; }
     .option strong { display: block; margin-bottom: 8px; }
     .option p { color: #64748b; margin: 0; font-size: 14px; }
     .field { margin: 18px 0; }
@@ -135,18 +137,18 @@ select {width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-
     <p id="testBanner" class="privacy-notice" style="color:#b91c1c;font-weight:bold">抽選テスト用：実際の個人情報は入力しないでください。</p>
 <p id="receptionInfo" role="status" class="notice"></p>
 <div id="menu">
-      <div class="option" onclick="showNewForm()">
+      <button type="button" id="newOption" class="option" disabled onclick="showNewForm()">
         <strong>① 新しく申し込む</strong>
-        <p>希望順位を選択して抽選にお申し込みいただけます。</p>
-      </div>
-      <div class="option" onclick="showManageForm('change')">
-        <strong>② 申込内容を変更する</strong>
-        <p>申込済みの内容を確認・変更できます。</p>
-      </div>
-      <div class="option" onclick="showManageForm('cancel')">
+        <p id="newOptionText">受付状況を確認しています…</p>
+      </button>
+      <button type="button" id="manageOption" class="option" disabled onclick="showManageForm(receptionOpen?'change':'view')">
+        <strong id="manageOptionTitle">② 申込内容を確認する</strong>
+        <p id="manageOptionText">申込済みの内容を確認できます。</p>
+      </button>
+      <button type="button" id="cancelOption" class="option hidden" disabled onclick="showManageForm('cancel')">
         <strong>③ 申込をキャンセルする</strong>
         <p>申込済みのセミナーをキャンセルできます。</p>
-      </div>
+      </button>
     </div>
 <section id="manageForm" class="hidden">
   <h2 id="manageTitle">申込内容の確認</h2>
@@ -357,29 +359,32 @@ const groups = [
  {title:'12月19日（土）16:40〜17:30｜スイーツセミナー',keys:['sweets'],names:['スイーツ①']},
  {title:'12月20日（日）10:50〜11:40｜ブランチセミナー',keys:['brunch','brunch2','brunch3'],names:['ブランチ①','ブランチ②','ブランチ③']}
 ];
+let receptionOpen=false, receptionKnown=false;
 let busy=false, manageMode='', current=null, credentials=null, newReady=false;
 function syncConsent(){ $('submitButton').disabled=busy||!newReady||!$('privacyConsent').checked; }
 $('privacyConsent').addEventListener('change',syncConsent);
 const none='参加しない';
 function show(id,visible){$(id).classList.toggle('hidden',!visible);}
 function msg(id,value,error=false){$(id).textContent=value;$(id).className=error?'error':'';}
-function setBusy(value){busy=value;document.querySelectorAll('button').forEach(b=>{if(value){b.dataset.wasDisabled=String(b.disabled);b.disabled=true;}else if('wasDisabled' in b.dataset){b.disabled=b.dataset.wasDisabled==='true';delete b.dataset.wasDisabled;}});}
-async function initial(){const r=await api('initial');if(r.testMode!==true)throw Error('テスト環境ではありません。');if(r.consentVersion!==CONSENT_VERSION)throw Error('同意文面のバージョンが一致しません。ページを再読み込みしてください。');if(!r.reception||!Array.isArray(r.seminars))throw Error('受付情報が不正です。');msg('receptionInfo',[r.reception.message||r.reception.status,r.reception.startAt&&r.reception.endAt?'受付期間：'+r.reception.startAt+' ～ '+r.reception.endAt+'（日本時間）':''].filter(Boolean).join('\n'));return r;}
+function setBusy(value){busy=value;document.querySelectorAll('button').forEach(b=>{if(value){b.dataset.wasDisabled=String(b.disabled);b.disabled=true;}else if('wasDisabled' in b.dataset){b.disabled=b.dataset.wasDisabled==='true';delete b.dataset.wasDisabled;}});if(!value){$('newOption').disabled=!receptionOpen;$('manageOption').disabled=!receptionKnown;$('cancelOption').disabled=!receptionOpen;}}
+function updateMenu(r){receptionKnown=!!r;receptionOpen=r?.available===true;$('newOption').disabled=!receptionOpen;$('manageOption').disabled=!receptionKnown;$('cancelOption').disabled=!receptionOpen;show('cancelOption',receptionOpen);$('newOptionText').textContent=receptionOpen?'希望順位を選択して抽選にお申し込みいただけます。':(r?.message||'受付状況を確認できません。');$('manageOptionTitle').textContent=receptionOpen?'② 申込内容を変更する':'② 申込内容を確認する';$('manageOptionText').textContent=receptionOpen?'申込済みの内容を確認・変更できます。':'申込済みの内容を確認できます。';}
+async function initial(){const r=await api('initial');if(r.testMode!==true)throw Error('テスト環境ではありません。');if(r.consentVersion!==CONSENT_VERSION)throw Error('同意文面のバージョンが一致しません。ページを再読み込みしてください。');if(!r.reception||!Array.isArray(r.seminars))throw Error('受付情報が不正です。');msg('receptionInfo',[r.reception.message||r.reception.status,r.reception.startAt&&r.reception.endAt?'受付期間：'+r.reception.startAt+' ～ '+r.reception.endAt+'（日本時間）':''].filter(Boolean).join('\n'));updateMenu(r.reception);return r;}
 function render(listId,seminars,values={},enabled=true){const list=$(listId);list.replaceChildren();for(const g of groups){const h=document.createElement('h2');h.textContent=g.title;list.append(h);for(const name of g.names){const sem=seminars.find(x=>x.name===name);if(!sem)throw Error('セミナー情報が不足しています。');const info=seminarDetails[name];const card=document.createElement('div');card.className='seminar';for(const [i,line] of [name,info.title,info.subtitle,'講師：'+info.speaker,'会場：'+info.venue,'協賛企業：'+info.sponsor,'定員：'+sem.capacity+'名'].entries()){if(!line)continue;const d=document.createElement('div');d.textContent=line;d.style.marginTop='4px';if(i===0||i===1||i===5)d.style.fontWeight='bold';card.append(d);}list.append(card);}
  const box=document.createElement('div');box.className='rankbox';const selects=[];g.keys.forEach((key,i)=>{const field=document.createElement('div');field.className='field';const label=document.createElement('label');label.htmlFor=listId+'-'+key;label.textContent=g.keys.length===1?'参加希望（必須）':`第${i+1}希望（${i===0?'必須':'任意'}）`;const select=document.createElement('select');select.id=label.htmlFor;select.dataset.key=key;selects.push(select);const options=i===0?[['','選択してください'],[none,none],...g.names.map(n=>[n,g.keys.length===1?'参加希望（'+n+'）':n])]:[['','希望なし'],...g.names.map(n=>[n,n])];for(const [v,t] of options)select.add(new Option(t,v));select.value=values[key]||'';field.append(label,select);box.append(field);});
  function sync(){selects.forEach((sel,i)=>{if(i>0&&(!selects[i-1].value||selects[0].value===none))sel.value='';sel.disabled=!enabled||(i>0&&(!selects[i-1].value||selects[0].value===none));for(const opt of sel.options){opt.disabled=!!opt.value&&opt.value!==none&&selects.slice(0,i).some(prev=>prev.value===opt.value);}if(sel.selectedOptions[0]?.disabled)sel.value='';});}selects.forEach(sel=>sel.addEventListener('change',sync));sync();list.append(box);}}
 function choices(listId){const data={};for(const g of groups){for(const key of g.keys){const el=$(listId+'-'+key);if(!el)throw Error('セミナー情報を読み込んでください。');data[key]=el.value;}if(!data[g.keys[0]])throw Error('各時間帯の参加希望を選択してください。');}if(groups.every(g=>data[g.keys[0]]===none))throw Error('参加希望を1件以上選択してください。');return data;}
 function summary(d){return groups.map(g=>g.keys.map((k,i)=>(i===0?g.names[0].slice(0,-1)+'：':'  第'+(i+1)+'希望：')+(d[k]||'希望なし')).join('\n')).join('\n\n');}
-function goBack(){if(busy)return;show('newForm',false);show('manageForm',false);show('menu',true);current=null;credentials=null; $('manageToken').value='';window.scrollTo(0,0);}
-async function showNewForm(){if(busy)return;show('menu',false);show('newForm',true);newReady=false;$('privacyConsent').checked=false;$('submitButton').disabled=true;$('submitButton').textContent='この内容で抽選に申し込む';$('seminarList').replaceChildren();msg('message','読み込み中…');setBusy(true);let enabled=false;try{const r=await initial();enabled=r.reception.available===true;render('seminarList',r.seminars,{},enabled);msg('message',enabled?'':r.reception.message||'受付停止中');}catch(e){msg('message',e.message,true);}finally{setBusy(false);newReady=enabled;syncConsent();}}
+function goBack(){if(busy)return;show('newForm',false);show('manageForm',false);show('menu',true);current=null;credentials=null; $('manageToken').value='';window.scrollTo(0,0);refreshMenu();}
+async function showNewForm(){if(busy||!receptionOpen)return;show('menu',false);show('newForm',true);newReady=false;$('privacyConsent').checked=false;$('submitButton').disabled=true;$('submitButton').textContent='この内容で抽選に申し込む';$('seminarList').replaceChildren();msg('message','読み込み中…');setBusy(true);let enabled=false;try{const r=await initial();enabled=r.reception.available===true;if(!enabled){show('newForm',false);show('menu',true);return;}render('seminarList',r.seminars,{},enabled);msg('message',enabled?'':r.reception.message||'受付停止中');}catch(e){msg('message',e.message,true);}finally{setBusy(false);newReady=enabled;syncConsent();}}
 async function submitApplication(){if(busy||$('submitButton').disabled)return;let data;try{if(!$('privacyConsent').checked)throw Error('個人情報の取り扱いへの同意が必要です。');data=choices('seminarList');data.privacyConsent=true;data.consentVersion=CONSENT_VERSION;for(const key of ['name','affiliation','email','profession']){data[key]=$(key).value.trim();if(!data[key])throw Error('必須項目を入力してください。');}if(!$('email').checkValidity())throw Error('メールアドレスを確認してください。');}catch(e){msg('message',e.message,true);return;}if(!confirm('以下の内容で抽選に申し込みますか？\n\n'+summary(data)))return;setBusy(true);let success=false;msg('message','送信中…');try{const r=await api('submit',{data});success=true;msg('message',r.message+'\n\n【申込ID】\n'+r.applicationId+'\n\n【確認コード】\n'+r.editToken+'\n\n必ず保存してください。テストでは実メールは送信されません。');$('submitButton').textContent='申込完了';}catch(e){msg('message',e.message+'\n通信が中断された場合は再送信前に管理者へ確認してください。',true);}finally{setBusy(false);if(success)newReady=false;syncConsent();}}
-function showManageForm(mode){if(busy)return;manageMode=mode;current=null;credentials=null;show('menu',false);show('newForm',false);show('manageForm',true);show('manageActions',false);show('changeActions',false);show('cancelActions',false);$('manageTitle').textContent=mode==='change'?'申込内容を変更する':'申込をキャンセルする';$('manageId').value='';$('manageToken').value='';msg('manageMessage','');msg('changeMessage','');$('changeSeminarList').replaceChildren();}
+function showManageForm(mode){if(busy||!receptionKnown)return;if(!receptionOpen)mode='view';manageMode=mode;current=null;credentials=null;show('menu',false);show('newForm',false);show('manageForm',true);show('manageActions',false);show('changeActions',false);show('cancelActions',false);$('manageTitle').textContent=mode==='change'?'申込内容を変更する':mode==='cancel'?'申込をキャンセルする':'申込内容を確認する';$('manageId').value='';$('manageToken').value='';msg('manageMessage','');msg('changeMessage','');$('changeSeminarList').replaceChildren();}
 function details(d){$('applicationDetails').textContent='氏名：'+d.name+'\n所属：'+d.affiliation+'\nメール：'+d.email+'\n申込状態：'+(d.displayStatus||d.status)+'\n\n'+summary(d);}
-async function lookupApplication(){if(busy)return;current=null;credentials=null;show('manageActions',false);show('changeActions',false);show('cancelActions',false);const c={applicationId:$('manageId').value.trim(),editToken:$('manageToken').value.trim()};if(!c.applicationId||!c.editToken){msg('manageMessage','申込IDと確認コードを入力してください。',true);return;}setBusy(true);msg('manageMessage','確認中…');try{const r=await initial();const a=(await api('lookup',c)).application;current=a;credentials=c;details(a);show('manageActions',true);msg('manageMessage',a.receptionMessage||'申込情報を取得しました。');if(manageMode==='change'&&a.canEdit===true&&r.reception.available===true){render('changeSeminarList',r.seminars,a,true);msg('changeMessage','');show('changeActions',true);}if(manageMode==='cancel'&&a.canCancel===true&&r.reception.available===true)show('cancelActions',true);}catch(e){msg('manageMessage',e.message,true);}finally{setBusy(false);}}
+async function lookupApplication(){if(busy)return;current=null;credentials=null;show('manageActions',false);show('changeActions',false);show('cancelActions',false);const c={applicationId:$('manageId').value.trim(),editToken:$('manageToken').value.trim()};if(!c.applicationId||!c.editToken){msg('manageMessage','申込IDと確認コードを入力してください。',true);return;}setBusy(true);msg('manageMessage','確認中…');try{const r=await initial();const a=(await api('lookup',c)).application;current=a;credentials=c;if(!r.reception.available){manageMode='view';$('manageTitle').textContent='申込内容を確認する';}details(a);show('manageActions',true);msg('manageMessage',a.receptionMessage||'申込情報を取得しました。');if(manageMode==='change'&&a.canEdit===true&&r.reception.available===true){render('changeSeminarList',r.seminars,a,true);msg('changeMessage','');show('changeActions',true);}if(manageMode==='cancel'&&a.canCancel===true&&r.reception.available===true)show('cancelActions',true);}catch(e){msg('manageMessage',e.message,true);}finally{setBusy(false);}}
 function validCredentials(){return credentials&&credentials.applicationId===$('manageId').value.trim()&&credentials.editToken===$('manageToken').value.trim();}
 async function confirmApplicationChange(){if(busy||!current||!validCredentials())return;let data;try{data=choices('changeSeminarList');}catch(e){msg('changeMessage',e.message,true);return;}if(!confirm('以下の希望順位に変更しますか？\n\n'+summary(data)))return;setBusy(true);try{const r=await api('change',{...credentials,data});current={...current,...data};details(current);msg('manageMessage',r.message);show('changeActions',false);}catch(e){msg('changeMessage',e.message+'\n再送信前に申込内容を再確認してください。',true);}finally{setBusy(false);}}
 async function confirmCancellation(){if(busy||!current||!validCredentials())return;if(!confirm('申込をキャンセルしますか？'))return;setBusy(true);try{const r=await api('cancel',credentials);msg('manageMessage',r.message);show('manageActions',false);current=null;credentials=null;}catch(e){msg('manageMessage',e.message+'\n再送信前に申込内容を再確認してください。',true);}finally{setBusy(false);}}
-initial().catch(e=>msg('receptionInfo',e.message,true));
+async function refreshMenu(){updateMenu(null);try{await initial();}catch(e){updateMenu(null);msg('receptionInfo',e.message,true);}}
+refreshMenu();
 
 </script>
 </body>
